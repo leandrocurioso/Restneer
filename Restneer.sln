@@ -1,0 +1,31 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restneer.Core", "Restneer.Core\Restneer.Core.csproj", "{7E26EE37-7050-4F53-8A96-8248EC699687}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restneer.Web.Api", "Restneer.Web.Api\Restneer.Web.Api.csproj", "{9828ED2D-973A-40E3-AA65-6AF107DA694B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3D909515-021E-484D-98B3-0659D33655A7}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+		layer-scheme.png = layer-scheme.png
+		README.md = README.md
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7E26EE37-7050-4F53-8A96-8248EC699687}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E26EE37-7050-4F53-8A96-8248EC699687}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E26EE37-7050-4F53-8A96-8248EC699687}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E26EE37-7050-4F53-8A96-8248EC699687}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9828ED2D-973A-40E3-AA65-6AF107DA694B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9828ED2D-973A-40E3-AA65-6AF107DA694B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9828ED2D-973A-40E3-AA65-6AF107DA694B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9828ED2D-973A-40E3-AA65-6AF107DA694B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

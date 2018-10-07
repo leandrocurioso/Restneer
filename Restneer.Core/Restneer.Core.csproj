@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Class1.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="SimpleInjector" Version="4.3.0" />
+    <PackageReference Include="MySqlConnector" Version="0.45.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.1.1" />
+    <PackageReference Include="Dapper" Version="1.50.5" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Domain\" />
+    <Folder Include="Application\" />
+    <Folder Include="Infrastructure\" />
+    <Folder Include="Infrastructure\Connection\" />
+    <Folder Include="Infrastructure\Connection\MySql\" />
+    <Folder Include="Infrastructure\Repository\" />
+    <Folder Include="Infrastructure\Repository\ApiRole\" />
+    <Folder Include="Domain\Model\" />
+    <Folder Include="Domain\Model\Entity\" />
+    <Folder Include="Application\UseCase\" />
+    <Folder Include="Domain\Business\" />
+    <Folder Include="Domain\Business\ApiRole\" />
+    <Folder Include="Domain\Model\Enum\" />
+    <Folder Include="Domain\Model\ValueObject\" />
+  </ItemGroup>
+</Project>
