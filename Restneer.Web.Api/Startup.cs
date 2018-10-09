@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Restneer.Web.Api.Extensions;
 using SimpleInjector;
 using SimpleInjector.Integration.AspNetCore.Mvc;
 using SimpleInjector.Lifestyles;
@@ -51,15 +52,18 @@ namespace Restneer.Web.Api
 
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                // app.UseDeveloperExceptionPage();
             }
             else
             {
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
+            app.ConfigureCustomExceptionMiddleware();
+            app.UseMiddleware404();
             app.UseMvc();
+
         }
 
 

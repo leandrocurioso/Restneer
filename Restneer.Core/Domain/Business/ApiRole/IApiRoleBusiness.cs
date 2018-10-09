@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Restneer.Core.Domain.Model.Entity;
+﻿using Restneer.Core.Application.Module;
 
 namespace Restneer.Core.Domain.Business.ApiRole
 {
-    public interface IApiRoleBusiness
+    public interface IApiRoleBusiness : IApiRoleModule
     {
-        Task<IEnumerable<ApiRoleEntity>> List(ApiRoleEntity entity = null);
     }
 }

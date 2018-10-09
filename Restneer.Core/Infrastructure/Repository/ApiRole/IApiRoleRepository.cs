@@ -1,12 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Restneer.Core.Domain.Model.Entity;
+﻿using Restneer.Core.Application.Module;
 
 namespace Restneer.Core.Infrastructure.Repository.ApiRole
 {
-    public interface IApiRoleRepository
+    public interface IApiRoleRepository : IApiRoleModule
     {
-        Task<long> Create(ApiRoleEntity entity = null);
-        Task<IEnumerable<ApiRoleEntity>> List(ApiRoleEntity entity = null);
     }
 }

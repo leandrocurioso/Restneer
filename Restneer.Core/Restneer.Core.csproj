@@ -6,12 +6,15 @@
 
   <ItemGroup>
     <Compile Remove="Class1.cs" />
+    <Compile Remove="Infrastructure\SqlCompiler\ISqlCompiler.cs" />
+    <Compile Remove="Infrastructure\SqlCompiler\MySqlCompiler.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="SimpleInjector" Version="4.3.0" />
     <PackageReference Include="MySqlConnector" Version="0.45.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.1.1" />
     <PackageReference Include="Dapper" Version="1.50.5" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Domain\" />
@@ -28,5 +31,8 @@
     <Folder Include="Domain\Business\ApiRole\" />
     <Folder Include="Domain\Model\Enum\" />
     <Folder Include="Domain\Model\ValueObject\" />
+    <Folder Include="Application\UseCase\ApiRole\" />
+    <Folder Include="Application\Module\" />
+    <Folder Include="Application\Module\ApiRole\" />
   </ItemGroup>
 </Project>

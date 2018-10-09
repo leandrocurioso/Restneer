@@ -6,14 +6,20 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="SimpleInjector.Integration.AspNetCore.Mvc" Version="4.3.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.1.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Restneer.Core\Restneer.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Middlewares\ExceptionHandlingMiddleware.cs" />
+    <Compile Remove="Extensions\NotFoundMiddleware.cs" />
   </ItemGroup>
 </Project>

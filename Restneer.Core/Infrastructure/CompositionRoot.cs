@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using Restneer.Core.Application.UseCase.ApiRole;
 using Restneer.Core.Domain.Business.ApiRole;
 using Restneer.Core.Infrastructure.Connection;
 using Restneer.Core.Infrastructure.Connection.MySql;
@@ -17,7 +18,7 @@ namespace Restneer.Core.Infrastructure
                 RegisterGeneral(container);
                 RegisterRepository(container);
                 RegisterBusiness(container);
-
+                RegisterUseCase(container);
             }
             catch
             {
@@ -67,6 +68,18 @@ namespace Restneer.Core.Infrastructure
             try
             {
                 container.Register<IApiRoleBusiness, ApiRoleBusiness>(Lifestyle.Scoped);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        static void RegisterUseCase(Container container)
+        {
+            try
+            {
+                container.Register<IApiRoleUseCase, ApiRoleUseCase>(Lifestyle.Scoped);
             }
             catch
             {

@@ -4,36 +4,51 @@ using System.Data;
 using System.Threading.Tasks;
 using Restneer.Core.Domain.Model.Entity;
 using Dapper;
+using Restneer.Core.Domain.Model.ValueObject;
 
 namespace Restneer.Core.Infrastructure.Repository.ApiRole
 {
-    public class ApiRoleRepository : IApiRoleRepository
+    public class ApiRoleRepository : AbstractRepository, 
+                                     IApiRoleRepository
     {
-        readonly IDbConnection _connection;
 
         public ApiRoleRepository(IDbConnection connection)
+            : base(connection)
         {
-            _connection = connection;
         }
 
-        public async Task<long> Create(ApiRoleEntity entity = null)
+        public Task<long> Create(ApiRoleEntity apiRoleEntity)
         {
-            try {
-                return await Task.FromResult(0);
-            } catch {
-                throw;
-            }
+            throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<ApiRoleEntity>> List(ApiRoleEntity entity = null)
+        public Task<ApiRoleEntity> Read(ApiRoleEntity apiRoleEntity)
         {
-            try {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> Update(ApiRoleEntity apiRoleEntity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> Delete(ApiRoleEntity apiRoleEntity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<ApiRoleEntity>> List(QueryParam<ApiRoleEntity> queryParam = null)
+        {
+            try
+            {
                 var sql = @"SELECT * 
                                FROM api_role;";
-                return await _connection.QueryAsync<ApiRoleEntity>(sql);
-            } catch {
+                return await Connection.QueryAsync<ApiRoleEntity>(sql);
+            }
+            catch
+            {
                 throw;
             }
-        }
+        }  
     }
 }

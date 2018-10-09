@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Restneer.Core.Domain.Model.Enum;
 
 namespace Restneer.Core.Domain.Model.Entity
@@ -7,6 +8,7 @@ namespace Restneer.Core.Domain.Model.Entity
     [Serializable]
     public abstract class AbstractEntity
     {
+        [Key]
         public long Id{ get; set; }
 
         [Required]

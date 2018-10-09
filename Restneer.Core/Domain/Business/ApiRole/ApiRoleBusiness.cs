@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Restneer.Core.Domain.Model.Entity;
+using Restneer.Core.Domain.Model.ValueObject;
 using Restneer.Core.Infrastructure.Repository.ApiRole;
 
 namespace Restneer.Core.Domain.Business.ApiRole
@@ -15,11 +16,34 @@ namespace Restneer.Core.Domain.Business.ApiRole
             _apiRoleRepository = apiRoleRepository;
         }
 
-        public async Task<IEnumerable<ApiRoleEntity>> List(ApiRoleEntity entity = null)
+        public Task<long> Create(ApiRoleEntity apiRoleEntity)
         {
-            try {
-                return await _apiRoleRepository.List(entity);
-            } catch {
+            throw new NotImplementedException();
+        }
+
+        public Task<ApiRoleEntity> Read(ApiRoleEntity apiRoleEntity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> Update(ApiRoleEntity apiRoleEntity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> Delete(ApiRoleEntity apiRoleEntity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<ApiRoleEntity>> List(QueryParam<ApiRoleEntity> queryParam = null)
+        {
+            try
+            {
+                return await _apiRoleRepository.List(queryParam);
+            }
+            catch
+            {
                 throw;
             }
         }
