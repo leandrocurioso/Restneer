@@ -1,11 +1,9 @@
 ﻿using Newtonsoft.Json;
 
-namespace Restneer.Core.Domain.Model.ValueObject
+namespace Restneer.Core.Model.ValueObject
 {
-    public class ErrorResponse
+    public class ErrorResponseValueObject
     {
-        public int StatusCode { get; set; }
-        public string Field { get; set; }
         public string Message { get; set; }
 
         public override string ToString()

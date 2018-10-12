@@ -1,9 +1,9 @@
 ﻿using System.Data;
-using Restneer.Core.Application.UseCase.ApiRole;
-using Restneer.Core.Domain.Business.ApiRole;
+using Restneer.Core.Application.UseCase.ApiRoleResourceRoute;
+using Restneer.Core.Domain.Business.ApiRoleResourceRoute;
 using Restneer.Core.Infrastructure.Connection;
 using Restneer.Core.Infrastructure.Connection.MySql;
-using Restneer.Core.Infrastructure.Repository.ApiRole;
+using Restneer.Core.Infrastructure.Repository.ApiRoleResourceRoute;
 using SimpleInjector;
 
 namespace Restneer.Core.Infrastructure
@@ -55,7 +55,7 @@ namespace Restneer.Core.Infrastructure
         {
             try
             {
-                container.Register<IApiRoleRepository, ApiRoleRepository>(Lifestyle.Scoped);
+                container.Register<IApiRoleResourceRouteRepository, ApiRoleResourceRouteRepository>(Lifestyle.Scoped);
             }
             catch
             {
@@ -67,7 +67,7 @@ namespace Restneer.Core.Infrastructure
         {
             try
             {
-                container.Register<IApiRoleBusiness, ApiRoleBusiness>(Lifestyle.Scoped);
+                container.Register<IApiRoleResourceRouteBusiness, ApiRoleResourceRouteBusiness>(Lifestyle.Scoped);
             }
             catch
             {
@@ -79,7 +79,7 @@ namespace Restneer.Core.Infrastructure
         {
             try
             {
-                container.Register<IApiRoleUseCase, ApiRoleUseCase>(Lifestyle.Scoped);
+                container.Register<IApiRoleResourceRouteUseCase, ApiRoleResourceRouteUseCase>(Lifestyle.Scoped);
             }
             catch
             {

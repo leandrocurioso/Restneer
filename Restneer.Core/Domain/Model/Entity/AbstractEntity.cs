@@ -9,7 +9,7 @@ namespace Restneer.Core.Domain.Model.Entity
     public abstract class AbstractEntity
     {
         [Key]
-        public long Id{ get; set; }
+        public long Id { get; set; }
 
         [Required]
         public DateTime CreatedAt = DateTime.Now;
@@ -19,6 +19,6 @@ namespace Restneer.Core.Domain.Model.Entity
         public DateTime? DeletedAt { get; set; }
 
         [Required]
-        public StatusEnum Status { get; set; }
+        public StatusEnum Status = StatusEnum.Active;
     }
 }

@@ -1,40 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Restneer.Core.Domain.Business.ApiRole;
+using Restneer.Core.Domain.Business.ApiRoleResourceRoute;
 using Restneer.Core.Domain.Model.Entity;
 using Restneer.Core.Domain.Model.ValueObject;
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
 
-namespace Restneer.Core.Application.UseCase.ApiRole
+namespace Restneer.Core.Application.UseCase.ApiRoleResourceRoute
 {
-    public class ApiRoleUseCase : IApiRoleUseCase
+    public class ApiRoleResourceRouteUseCase : IApiRoleResourceRouteUseCase
     {
         readonly Container _container;
 
-        public ApiRoleUseCase(Container container)
+        public ApiRoleResourceRouteUseCase(Container container)
         {
             _container = container;
         }
 
-        public Task<long> Create(ApiRoleEntity apiRoleEntity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> Delete(ApiRoleEntity apiRoleEntity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<IEnumerable<ApiRoleEntity>> List(QueryParam<ApiRoleEntity> queryParam = null)
+        public async Task<IEnumerable<ApiRoleResourceRouteEntity>> List(QueryParamValueObject<ApiRoleResourceRouteEntity> model)
         {
             try {
                 using (AsyncScopedLifestyle.BeginScope(_container))
                 {
-                    var apiRoleBusiness = _container.GetInstance<IApiRoleBusiness>();
-                    return await apiRoleBusiness.List(queryParam);
+                    var apiRoleResourceRouteBusiness = _container.GetInstance<IApiRoleResourceRouteBusiness>();
+                    return await apiRoleResourceRouteBusiness.List(model);
                 }
             } catch {
                 throw;

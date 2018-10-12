@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Net;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
-using Restneer.Core.Domain.Model.ValueObject;
+using Restneer.Core.Model.ValueObject;
 
-namespace Restneer.Web.Api.Extensions
+namespace Restneer.Core.Application.Middleware
 {
     public class ExceptionMiddleware
     {
@@ -29,14 +27,12 @@ namespace Restneer.Web.Api.Extensions
             }
         }
 
-        private static Task HandleExceptionAsync(HttpContext context, Exception exception)
+        static Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-
-            return context.Response.WriteAsync(new ErrorResponse()
+            return context.Response.WriteAsync(new ErrorResponseValueObject()
             {
-                StatusCode = context.Response.StatusCode,
                 Message = exception.Message
             }.ToString());
         }

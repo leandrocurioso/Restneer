@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
@@ -18,7 +19,11 @@ namespace Restneer.Web.Api
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
+            
+        WebHost.CreateDefaultBuilder(args)
+               .UseKestrel(options => {
+                   options.AddServerHeader = false;
+                })
                .UseStartup<Startup>();
     }
 }

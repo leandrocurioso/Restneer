@@ -2,7 +2,7 @@
 
 namespace Restneer.Core.Domain.Model.ValueObject
 {
-    public class QueryParam<T>
+    public class QueryParamValueObject<T>
     {
         public T Model { get; set; }
         public long? Limit = 25;

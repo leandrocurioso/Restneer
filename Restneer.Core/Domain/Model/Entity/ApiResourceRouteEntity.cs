@@ -16,5 +16,11 @@ namespace Restneer.Core.Domain.Model.Entity
 
         [Required]
         public string UriRegex { get; set; }
+
+        [Required]
+        public string HttpVerb { get; set; }
+
+        [Required]
+        public string Version { get; set; }
     }
 }

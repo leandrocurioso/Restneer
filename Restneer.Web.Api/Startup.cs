@@ -6,10 +6,11 @@ using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Restneer.Web.Api.Extensions;
 using SimpleInjector;
 using SimpleInjector.Integration.AspNetCore.Mvc;
 using SimpleInjector.Lifestyles;
+using Restneer.Core.Application.Middleware;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 namespace Restneer.Web.Api
 {
@@ -49,7 +50,6 @@ namespace Restneer.Web.Api
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             InitializeContainer(app);
-
             if (env.IsDevelopment())
             {
                 // app.UseDeveloperExceptionPage();
@@ -60,14 +60,14 @@ namespace Restneer.Web.Api
             }
 
             // app.UseHttpsRedirection();
-            app.ConfigureCustomExceptionMiddleware();
-            app.UseMiddleware404();
+            app.UseMiddleware<ExceptionMiddleware>();
+            app.UseMiddleware<ApiKeyMiddleware>();
             app.UseMvc();
-
+            app.UseMiddleware<NotFoundMiddleware>();
         }
 
 
-        private void InitializeContainer(IApplicationBuilder app)
+        void InitializeContainer(IApplicationBuilder app)
         {
             // Add application presentation components:
             _container.RegisterMvcControllers(app);
