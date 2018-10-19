@@ -1,5 +1,4 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 using MySql.Data.MySqlClient;
 using Microsoft.Extensions.Configuration;
 
@@ -10,7 +9,7 @@ namespace Restneer.Core.Infrastructure.Connection.MySql
         public IConfiguration Configuration { get; }
 
         static MySqlConnectionFactory(){
-            Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
+           Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;  
         }
 
         public MySqlConnectionFactory(IConfiguration configuration)

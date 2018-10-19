@@ -10,7 +10,8 @@ using SimpleInjector;
 using SimpleInjector.Integration.AspNetCore.Mvc;
 using SimpleInjector.Lifestyles;
 using Restneer.Core.Application.Middleware;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Restneer.Core.Application.Boot;
+using Restneer.Core.Domain.Business.ApiResourceRoute;
 
 namespace Restneer.Web.Api
 {
@@ -50,6 +51,11 @@ namespace Restneer.Web.Api
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             InitializeContainer(app);
+            using (AsyncScopedLifestyle.BeginScope(_container))
+            {
+                // var restneerCacheBoot = _container.GetInstance<IRestneerCacheBoot>();
+                // restneerCacheBoot.Load();
+            }
             if (env.IsDevelopment())
             {
                 // app.UseDeveloperExceptionPage();
@@ -59,9 +65,10 @@ namespace Restneer.Web.Api
                 app.UseHsts();
             }
 
-            // app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
             app.UseMiddleware<ExceptionMiddleware>();
             app.UseMiddleware<ApiKeyMiddleware>();
+            app.UseMiddleware<SecurityMiddleware>();
             app.UseMvc();
             app.UseMiddleware<NotFoundMiddleware>();
         }

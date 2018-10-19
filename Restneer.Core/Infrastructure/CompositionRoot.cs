@@ -1,9 +1,15 @@
 ﻿using System.Data;
-using Restneer.Core.Application.UseCase.ApiRoleResourceRoute;
+using Restneer.Core.Application.Boot;
+using Restneer.Core.Application.UseCase.ApiUser;
+using Restneer.Core.Domain.Business.ApiResourceRoute;
 using Restneer.Core.Domain.Business.ApiRoleResourceRoute;
+using Restneer.Core.Domain.Business.ApiUser;
 using Restneer.Core.Infrastructure.Connection;
 using Restneer.Core.Infrastructure.Connection.MySql;
+using Restneer.Core.Infrastructure.Repository.ApiResourceRoute;
 using Restneer.Core.Infrastructure.Repository.ApiRoleResourceRoute;
+using Restneer.Core.Infrastructure.Repository.ApiUser;
+using Restneer.Core.Infrastructure.Utility.Sha256;
 using SimpleInjector;
 
 namespace Restneer.Core.Infrastructure
@@ -44,6 +50,11 @@ namespace Restneer.Core.Infrastructure
             {
                 container.Register<IDbConnection>(() =>
                     container.GetInstance<ISqlConnectionFactory>().Fabricate(), Lifestyle.Scoped);
+
+                container.Register<IRestneerCacheBoot, RestneerCacheBoot>(Lifestyle.Scoped);
+
+                container.Register<ISha256Utility, Sha256Utility>(Lifestyle.Singleton);
+
             }
             catch
             {
@@ -55,7 +66,10 @@ namespace Restneer.Core.Infrastructure
         {
             try
             {
+                container.Register<IApiResourceRouteRepository, ApiResourceRouteRepository>(Lifestyle.Scoped);
                 container.Register<IApiRoleResourceRouteRepository, ApiRoleResourceRouteRepository>(Lifestyle.Scoped);
+                container.Register<IApiUserRepository, ApiUserRepository>(Lifestyle.Scoped);
+
             }
             catch
             {
@@ -67,7 +81,9 @@ namespace Restneer.Core.Infrastructure
         {
             try
             {
+                container.Register<IApiResourceRouteBusiness, ApiResourceRouteBusiness>(Lifestyle.Scoped);
                 container.Register<IApiRoleResourceRouteBusiness, ApiRoleResourceRouteBusiness>(Lifestyle.Scoped);
+                container.Register<IApiUserBusiness, ApiUserBusiness>(Lifestyle.Scoped);
             }
             catch
             {
@@ -79,7 +95,7 @@ namespace Restneer.Core.Infrastructure
         {
             try
             {
-                container.Register<IApiRoleResourceRouteUseCase, ApiRoleResourceRouteUseCase>(Lifestyle.Scoped);
+                container.Register<IApiUserUseCase, ApiUserUseCase>(Lifestyle.Scoped);
             }
             catch
             {

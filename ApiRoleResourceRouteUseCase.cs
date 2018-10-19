@@ -31,14 +31,5 @@ namespace Restneer.Core.Application.UseCase.ApiRoleResourceRoute
             }
         }
 
-        public Task<ApiRoleEntity> Read(ApiRoleEntity apiRoleEntity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> Update(ApiRoleEntity apiRoleEntity)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

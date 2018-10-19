@@ -1,16 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using Restneer.Core.Domain.Model.Entity;
 using Restneer.Core.Domain.Model.ValueObject;
 using Restneer.Core.Infrastructure.Repository.ApiRoleResourceRoute;
 
 namespace Restneer.Core.Domain.Business.ApiRoleResourceRoute
 {
-    public class ApiRoleResourceRouteBusiness : IApiRoleResourceRouteBusiness
+    public class ApiRoleResourceRouteBusiness : AbstractBusiness,
+                                                IApiRoleResourceRouteBusiness
     {
         readonly IApiRoleResourceRouteRepository _apiRoleResourceRouteRepository;
 
-        public ApiRoleResourceRouteBusiness(IApiRoleResourceRouteRepository apiRoleResourceRouteRepository)
+        public ApiRoleResourceRouteBusiness(IApiRoleResourceRouteRepository apiRoleResourceRouteRepository, IConfiguration configuration)
+            :base(configuration)
         {
             _apiRoleResourceRouteRepository = apiRoleResourceRouteRepository;
         }

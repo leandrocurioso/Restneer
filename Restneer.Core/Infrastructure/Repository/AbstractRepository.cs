@@ -1,14 +1,17 @@
 ﻿using System.Data;
+using Microsoft.Extensions.Configuration;
 
 namespace Restneer.Core.Infrastructure.Repository
 {
-    public class AbstractRepository
+    public abstract class AbstractRepository
     {
         protected readonly IDbConnection Connection;
+        protected readonly IConfiguration Configuration;
 
-        public AbstractRepository(IDbConnection connection)
+        public AbstractRepository(IDbConnection connection, IConfiguration configuration)
         {
             Connection = connection;
+            Configuration = configuration;
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Restneer.Core.Application.Middleware
         {
 
             var requestApiKey = httpContext.Request.Headers["Api-Key"];
-            var validApiKey = Configuration.GetSection("Server.ApiKey");
+            var validApiKey = Configuration.GetSection("Server:ApiKey").Value;
 
             if (requestApiKey == validApiKey) 
             {

@@ -9,6 +9,9 @@ namespace Restneer.Core.Domain.Model.Entity
     public class ApiUserEntity : AbstractEntity
     {
         [Required]
+        public ApiRoleEntity ApiRole { get; set; }
+
+        [Required]
         public string FirstName { get; set; }
 
         [Required]

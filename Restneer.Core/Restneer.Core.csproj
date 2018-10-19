@@ -16,6 +16,7 @@
     <PackageReference Include="Dapper" Version="1.50.5" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.1.1" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.3.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Domain\" />
@@ -32,8 +33,16 @@
     <Folder Include="Domain\Business\ApiRoleResourceRoute\" />
     <Folder Include="Domain\Model\Enum\" />
     <Folder Include="Domain\Model\ValueObject\" />
-    <Folder Include="Application\UseCase\ApiRoleResourceRoute\" />
     <Folder Include="Application\Module\" />
     <Folder Include="Application\Middleware\" />
+    <Folder Include="Infrastructure\Repository\ApiResourceRoute\" />
+    <Folder Include="Application\Cache\" />
+    <Folder Include="Application\Boot\" />
+    <Folder Include="Domain\Business\ApiResourceRoute\" />
+    <Folder Include="Infrastructure\Repository\ApiUser\" />
+    <Folder Include="Domain\Business\ApiUser\" />
+    <Folder Include="Application\UseCase\ApiUser\" />
+    <Folder Include="Infrastructure\Utility\" />
+    <Folder Include="Infrastructure\Utility\Sha256\" />
   </ItemGroup>
 </Project>

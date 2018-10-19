@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using Restneer.Core.Domain.Model.Enum;
 
 namespace Restneer.Core.Domain.Model.Entity

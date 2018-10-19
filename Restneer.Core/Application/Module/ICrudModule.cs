@@ -3,7 +3,8 @@
     public interface ICrudModule<T> : ICreator<T>,
                                       IReader<T>,
                                       IUpdater<T>,
-                                      IDeleter<T>
+                                      IDeleter<T>,
+                                      ILister<T>
     {
     }
 }
