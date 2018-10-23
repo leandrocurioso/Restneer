@@ -1,12 +1,12 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace Restneer.Core.Domain.Business
+namespace Restneer.Core.Domain.Logic
 {
-    public abstract class AbstractBusiness
+    public abstract class AbstractLogic
     {
         protected readonly IConfiguration Configuration;
 
-        public AbstractBusiness(IConfiguration configuration)
+        protected AbstractLogic(IConfiguration configuration)
         {
             Configuration = configuration;
         }

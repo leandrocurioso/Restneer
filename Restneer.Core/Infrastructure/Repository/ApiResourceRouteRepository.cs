@@ -6,10 +6,9 @@ using Microsoft.Extensions.Configuration;
 using Restneer.Core.Domain.Model.Entity;
 using Restneer.Core.Domain.Model.ValueObject;
 
-namespace Restneer.Core.Infrastructure.Repository.ApiResourceRoute
+namespace Restneer.Core.Infrastructure.Repository
 {
-    public class ApiResourceRouteRepository : AbstractRepository,
-                                              IApiResourceRouteRepository
+    public class ApiResourceRouteRepository : AbstractRepository
     {
         public ApiResourceRouteRepository(IDbConnection connection, IConfiguration configuration)
             : base(connection, configuration)

@@ -1,12 +1,12 @@
 ﻿using System.Data;
-using MySql.Data.MySqlClient;
 using Microsoft.Extensions.Configuration;
+using MySql.Data.MySqlClient;
 
 namespace Restneer.Core.Infrastructure.Connection.MySql
 {
     public class MySqlConnectionFactory : ISqlConnectionFactory
     {
-        public IConfiguration Configuration { get; }
+        readonly IConfiguration _configuration;
 
         static MySqlConnectionFactory(){
            Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;  
@@ -14,16 +14,14 @@ namespace Restneer.Core.Infrastructure.Connection.MySql
 
         public MySqlConnectionFactory(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
         }
 
         public IDbConnection Fabricate()
         {
             try {
-                var connectionString = Configuration.GetConnectionString("Default");
-                var connection = new MySqlConnection(connectionString);
-                connection.Open();
-                return connection;
+                var connectionString = _configuration.GetConnectionString("Default");
+                return new MySqlConnection(connectionString);
             } catch {
                 throw;
             }

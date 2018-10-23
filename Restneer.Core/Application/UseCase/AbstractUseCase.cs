@@ -1,15 +1,14 @@
-﻿using System;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 
 namespace Restneer.Core.Application.UseCase
 {
     public abstract class AbstractUseCase
     {
-        protected readonly IConfiguration _configuration;
+        protected readonly IConfiguration Configuration;
 
-        public AbstractUseCase(IConfiguration configuration)
+        protected AbstractUseCase(IConfiguration configuration)
         {
-            _configuration = configuration;
+            Configuration = configuration;
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Restneer.Core.Infrastructure.Repository
         protected readonly IDbConnection Connection;
         protected readonly IConfiguration Configuration;
 
-        public AbstractRepository(IDbConnection connection, IConfiguration configuration)
+        protected AbstractRepository(IDbConnection connection, IConfiguration configuration)
         {
             Connection = connection;
             Configuration = configuration;

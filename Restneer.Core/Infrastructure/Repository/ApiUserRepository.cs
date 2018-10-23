@@ -5,17 +5,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 
-namespace Restneer.Core.Infrastructure.Repository.ApiUser
+namespace Restneer.Core.Infrastructure.Repository
 {
-    public class ApiUserRepository : AbstractRepository,
-                                     IApiUserRepository
+    public class ApiUserRepository : AbstractRepository
     {
         public ApiUserRepository(IDbConnection connection, IConfiguration configuration)
              : base(connection, configuration)
         {
         }
 
-        public async Task<ApiUserEntity> Authenticate(string email, string encryptedPassword)
+        public virtual async Task<ApiUserEntity> Authenticate(string email, string encryptedPassword)
         {
             try 
             {

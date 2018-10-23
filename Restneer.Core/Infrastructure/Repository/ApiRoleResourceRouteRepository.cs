@@ -6,10 +6,9 @@ using Dapper;
 using Restneer.Core.Domain.Model.ValueObject;
 using Microsoft.Extensions.Configuration;
 
-namespace Restneer.Core.Infrastructure.Repository.ApiRoleResourceRoute
+namespace Restneer.Core.Infrastructure.Repository
 {
-    public class ApiRoleResourceRouteRepository : AbstractRepository,
-                                                  IApiRoleResourceRouteRepository
+    public class ApiRoleResourceRouteRepository : AbstractRepository
     {
 
         public ApiRoleResourceRouteRepository(IDbConnection connection, IConfiguration configuration)

@@ -1,28 +1,28 @@
 ﻿using Restneer.Core.Application.Cache;
-using Restneer.Core.Domain.Business.ApiResourceRoute;
+using Restneer.Core.Domain.Logic;
 using Restneer.Core.Domain.Model.Entity;
 using Restneer.Core.Domain.Model.ValueObject;
 
 namespace Restneer.Core.Application.Boot
 {
-    public class RestneerCacheBoot : IRestneerCacheBoot
+    public class RestneerCacheBoot
     {
-        readonly IApiResourceRouteBusiness _apiResourceRouteBusiness;
+        readonly ApiResourceRouteLogic _apiResourceRouteLogic;
 
-        public RestneerCacheBoot(IApiResourceRouteBusiness apiResourceRouteBusiness)
+        public RestneerCacheBoot(ApiResourceRouteLogic apiResourceRouteLogic)
         {
-            _apiResourceRouteBusiness = apiResourceRouteBusiness;
+            _apiResourceRouteLogic = apiResourceRouteLogic;
         }
 
-        public async void Load() 
+        public async void Load()
         {
             try
             {
                 var queryParamApiResourceRoute = new QueryParamValueObject<ApiResourceRouteEntity>();
-                RestneerCache.ApiResourceRoutes = 
-                    await _apiResourceRouteBusiness.List(queryParamApiResourceRoute);
+                RestneerCache.ApiResourceRoutes =
+                    await _apiResourceRouteLogic.List(queryParamApiResourceRoute);
             }
-            catch 
+            catch
             {
                 throw;
             }

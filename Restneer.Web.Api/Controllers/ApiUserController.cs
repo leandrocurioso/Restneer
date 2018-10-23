@@ -1,7 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using Restneer.Core.Application.UseCase.ApiUser;
+using Restneer.Web.Api.RequestModel.V1.ApiUser;
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
 
@@ -12,25 +14,25 @@ namespace Restneer.Web.Api.Controllers
     [Produces("application/json")]
     public class ApiUserV1Controller : ControllerBase
     {
-        readonly Container _container; 
+        readonly Container _container;
 
         public ApiUserV1Controller(Container container)
         {
             _container = container;
         }
 
-        // URI: /v1/api-user
-        [HttpPost]
-        public async Task<string> Get()
+        // URI: /authenticate
+        [HttpPost("authenticate")]
+        public async Task<object> Authenticate([FromBody] JObject body)
         {
             try {
+                var authenticateRequestModel = new AuthenticateRequestModel().Validate(body);
                 using (AsyncScopedLifestyle.BeginScope(_container))
                 {
-                    var apiUserUseCase = _container.GetInstance<IApiUserUseCase>();
-                    var jwtToken = await apiUserUseCase.GetJwtToken("leandro.curioso@gmail.com", "5221684");
-                    HttpContext.Response.Headers["Authorization"] = "Bearer " + jwtToken;
-                    HttpContext.Response.StatusCode = 204;
-                    return string.Empty;
+                    var apiUserUseCase = _container.GetInstance<ApiUserUseCase>();
+                    var jwtToken = await apiUserUseCase.GetJwtToken(authenticateRequestModel.Email, authenticateRequestModel.Password);
+                    HttpContext.Response.StatusCode = 200;
+                    return new { Token = jwtToken };
                 }
             } catch {
                 throw;

@@ -25,24 +25,16 @@
     <Folder Include="Infrastructure\Connection\" />
     <Folder Include="Infrastructure\Connection\MySql\" />
     <Folder Include="Infrastructure\Repository\" />
-    <Folder Include="Infrastructure\Repository\ApiRoleResourceRoute\" />
     <Folder Include="Domain\Model\" />
     <Folder Include="Domain\Model\Entity\" />
     <Folder Include="Application\UseCase\" />
-    <Folder Include="Domain\Business\" />
-    <Folder Include="Domain\Business\ApiRoleResourceRoute\" />
+    <Folder Include="Domain\Logic\" />
     <Folder Include="Domain\Model\Enum\" />
     <Folder Include="Domain\Model\ValueObject\" />
     <Folder Include="Application\Module\" />
     <Folder Include="Application\Middleware\" />
-    <Folder Include="Infrastructure\Repository\ApiResourceRoute\" />
     <Folder Include="Application\Cache\" />
     <Folder Include="Application\Boot\" />
-    <Folder Include="Domain\Business\ApiResourceRoute\" />
-    <Folder Include="Infrastructure\Repository\ApiUser\" />
-    <Folder Include="Domain\Business\ApiUser\" />
-    <Folder Include="Application\UseCase\ApiUser\" />
     <Folder Include="Infrastructure\Utility\" />
-    <Folder Include="Infrastructure\Utility\Sha256\" />
   </ItemGroup>
 </Project>
