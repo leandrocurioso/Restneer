@@ -16,7 +16,7 @@ namespace Restneer.Core.Infrastructure.Repository
         {
         }
 
-        public async Task<IEnumerable<ApiRoleResourceRouteEntity>> List(QueryParamValueObject<ApiRoleResourceRouteEntity> model)
+        public virtual async Task<IEnumerable<ApiRoleResourceRouteEntity>> List(QueryParamValueObject<ApiRoleResourceRouteEntity> model)
         {
             try
             {

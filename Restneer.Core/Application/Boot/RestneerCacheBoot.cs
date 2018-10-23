@@ -14,7 +14,7 @@ namespace Restneer.Core.Application.Boot
             _apiResourceRouteLogic = apiResourceRouteLogic;
         }
 
-        public async void Load()
+        public virtual async void Load()
         {
             try
             {

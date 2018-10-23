@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
-using Restneer.Core.Application.UseCase.ApiUser;
+using Restneer.Core.Application.UseCase;
 using Restneer.Web.Api.RequestModel.V1.ApiUser;
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
@@ -25,7 +25,8 @@ namespace Restneer.Web.Api.Controllers
         [HttpPost("authenticate")]
         public async Task<object> Authenticate([FromBody] JObject body)
         {
-            try {
+            try
+            {
                 var authenticateRequestModel = new AuthenticateRequestModel().Validate(body);
                 using (AsyncScopedLifestyle.BeginScope(_container))
                 {
@@ -34,7 +35,9 @@ namespace Restneer.Web.Api.Controllers
                     HttpContext.Response.StatusCode = 200;
                     return new { Token = jwtToken };
                 }
-            } catch {
+            }
+            catch
+            {
                 throw;
             }
         }

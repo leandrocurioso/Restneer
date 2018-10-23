@@ -1,7 +1,6 @@
 ﻿using System.Data;
-using Microsoft.Extensions.Configuration;
 using Restneer.Core.Application.Boot;
-using Restneer.Core.Application.UseCase.ApiUser;
+using Restneer.Core.Application.UseCase;
 using Restneer.Core.Domain.Logic;
 using Restneer.Core.Infrastructure.Connection;
 using Restneer.Core.Infrastructure.Connection.MySql;
