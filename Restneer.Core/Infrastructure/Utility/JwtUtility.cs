@@ -8,7 +8,7 @@ namespace Restneer.Core.Infrastructure.Utility
 {
     public class JwtUtility
     {
-        public virtual JwtSecurityToken GenerateJwt(string secretKey, string audience, string issuer, string role, string email, int daysToExpire)
+        public JwtSecurityToken GenerateJwt(string secretKey, string audience, string issuer, string role, string email, int daysToExpire)
         {
             try
             {

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Restneer.Core.Application.Module
+namespace Restneer.Core.Application.Interface
 {
     public interface IUpdater<T>
     {

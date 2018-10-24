@@ -4,11 +4,12 @@ using Restneer.Core.Domain.Logic;
 
 namespace Restneer.Core.Application.UseCase
 {
-    public class ApiUserUseCase : AbstractUseCase
+    public class ApiUserUseCase : AbstractUseCase, 
+                                  IApiUserUseCase
     {
-        readonly ApiUserLogic _apiUserLogic;
+        readonly IApiUserLogic _apiUserLogic;
 
-        public ApiUserUseCase(ApiUserLogic apiUserLogic, IConfiguration configuration)
+        public ApiUserUseCase(IApiUserLogic apiUserLogic, IConfiguration configuration)
             :base(configuration)
         {
             _apiUserLogic = apiUserLogic;

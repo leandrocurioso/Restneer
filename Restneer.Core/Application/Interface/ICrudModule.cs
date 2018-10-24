@@ -1,4 +1,4 @@
-﻿namespace Restneer.Core.Application.Module
+﻿namespace Restneer.Core.Application.Interface
 {
     public interface ICrudModule<T> : ICreator<T>,
                                       IReader<T>,

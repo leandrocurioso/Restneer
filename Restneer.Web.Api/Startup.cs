@@ -71,7 +71,6 @@ namespace Restneer.Web.Api
             app.UseMiddleware<NotFoundMiddleware>();
         }
 
-
         void InitializeContainer(IApplicationBuilder app)
         {
             // Add application presentation components:

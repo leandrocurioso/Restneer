@@ -6,7 +6,7 @@ namespace Restneer.Core.Infrastructure.Utility
 {
     public class Sha256Utility
     {
-        public virtual string Encrypt(string value)
+        public string Encrypt(string value)
         {
             try
             {

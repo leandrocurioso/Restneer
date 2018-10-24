@@ -7,14 +7,15 @@ using Microsoft.Extensions.Configuration;
 
 namespace Restneer.Core.Infrastructure.Repository
 {
-    public class ApiUserRepository : AbstractRepository
+    public class ApiUserRepository : AbstractRepository, 
+                                     IApiUserRepository
     {
         public ApiUserRepository(IDbConnection connection, IConfiguration configuration)
              : base(connection, configuration)
         {
         }
 
-        public virtual async Task<ApiUserEntity> Authenticate(string email, string encryptedPassword)
+        public async Task<ApiUserEntity> Authenticate(string email, string encryptedPassword)
         {
             try 
             {

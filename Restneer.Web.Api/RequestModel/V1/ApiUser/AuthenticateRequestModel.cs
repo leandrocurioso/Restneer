@@ -1,32 +1,38 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json.Linq;
-using Restneer.Core.Application.Module;
+using Restneer.Core.Application.Interface;
+using Restneer.Core.Model.ValueObject;
 
 namespace Restneer.Web.Api.RequestModel.V1.ApiUser
 {
-    public class AuthenticateRequestModel : AbstractRequestModel,
-                                            IRequestModel<AuthenticateRequestModel>
+    public class AuthenticateRequestModel : IRequestModel
+
     {
-        [Required]
-        [EmailAddress] 
-        public string Email { get; set; }
+        public bool IsValid { get; set; }
+        public List<ValidationResult> ValidationResults { get; set; }
+        public List<FormErrorResponseValueObject> ResponseErrors { get; set; }
 
         [Required]
-        public string Password { get; set; }
+        [EmailAddress]
+        [StringLength(300)]
+        public string email { get; set; }
 
-        public virtual AuthenticateRequestModel Validate(JObject data)
+        [Required]
+        [StringLength(300, MinimumLength = 6)]
+        public string password { get; set; }
+
+        public void Map(JObject data)
         {
-            var authenticateRequestModel = new AuthenticateRequestModel()
+            try
             {
-                Email = data.GetValue("email")?.Value<string>(),
-                Password = data.GetValue("password")?.Value<string>()
-            };
-
-            var results = new List<ValidationResult>();
-            var validationContext = new ValidationContext(authenticateRequestModel, null, null);
-            authenticateRequestModel.IsValid = Validator.TryValidateObject(authenticateRequestModel, validationContext, authenticateRequestModel.ValidationResults, true);
-            return authenticateRequestModel;
+                email = data?.GetValue("email")?.Value<string>();
+                password = data?.GetValue("password")?.Value<string>();
+            }
+            catch
+            {
+                throw;
+            }
         }
     }
 }

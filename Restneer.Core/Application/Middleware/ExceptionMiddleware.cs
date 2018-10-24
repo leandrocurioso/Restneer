@@ -2,6 +2,7 @@
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using Restneer.Core.Model.ValueObject;
 
 namespace Restneer.Core.Application.Middleware
@@ -20,6 +21,7 @@ namespace Restneer.Core.Application.Middleware
             try
             {
                 await _next(httpContext);
+                return;
             }
             catch (Exception ex)
             {
@@ -27,14 +29,20 @@ namespace Restneer.Core.Application.Middleware
             }
         }
 
-        static Task HandleExceptionAsync(HttpContext context, Exception exception)
+        static async Task HandleExceptionAsync(HttpContext httpContext, Exception exception)
         {
-            context.Response.ContentType = "application/json";
-            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-            return context.Response.WriteAsync(new ErrorResponseValueObject()
+            httpContext.Response.ContentType = "application/json";
+            httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            var errorObj = new
             {
-                Message = exception.Message
-            }.ToString());
+                errors = new object[1] {
+                    new ErrorResponseValueObject() {
+                        message = exception.Message
+                    }
+                }
+            };
+            await httpContext.Response.WriteAsync(JsonConvert.SerializeObject(errorObj));
+            return;
         }
     }
 }

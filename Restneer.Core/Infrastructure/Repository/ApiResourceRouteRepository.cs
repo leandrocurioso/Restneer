@@ -8,14 +8,15 @@ using Restneer.Core.Domain.Model.ValueObject;
 
 namespace Restneer.Core.Infrastructure.Repository
 {
-    public class ApiResourceRouteRepository : AbstractRepository
+    public class ApiResourceRouteRepository : AbstractRepository, 
+                                              IApiResourceRouteRepository
     {
         public ApiResourceRouteRepository(IDbConnection connection, IConfiguration configuration)
             : base(connection, configuration)
         {
         }
 
-        public virtual async Task<IEnumerable<ApiResourceRouteEntity>> List(QueryParamValueObject<ApiResourceRouteEntity> model)
+        public async Task<IEnumerable<ApiResourceRouteEntity>> List(QueryParamValueObject<ApiResourceRouteEntity> model)
         {
             try
             {

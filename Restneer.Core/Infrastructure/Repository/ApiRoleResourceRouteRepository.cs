@@ -8,7 +8,8 @@ using Microsoft.Extensions.Configuration;
 
 namespace Restneer.Core.Infrastructure.Repository
 {
-    public class ApiRoleResourceRouteRepository : AbstractRepository
+    public class ApiRoleResourceRouteRepository : AbstractRepository, 
+                                                  IApiRoleResourceRouteRepository
     {
 
         public ApiRoleResourceRouteRepository(IDbConnection connection, IConfiguration configuration)
@@ -16,7 +17,7 @@ namespace Restneer.Core.Infrastructure.Repository
         {
         }
 
-        public virtual async Task<IEnumerable<ApiRoleResourceRouteEntity>> List(QueryParamValueObject<ApiRoleResourceRouteEntity> model)
+        public async Task<IEnumerable<ApiRoleResourceRouteEntity>> List(QueryParamValueObject<ApiRoleResourceRouteEntity> model)
         {
             try
             {

@@ -7,17 +7,18 @@ using Restneer.Core.Infrastructure.Repository;
 
 namespace Restneer.Core.Domain.Logic
 {
-    public class ApiRoleResourceRouteLogic : AbstractLogic
+    public class ApiRoleResourceRouteLogic : AbstractLogic, 
+                                             IApiRoleResourceRouteLogic
     {
-        readonly ApiRoleResourceRouteRepository _apiRoleResourceRouteRepository;
+        readonly IApiRoleResourceRouteRepository _apiRoleResourceRouteRepository;
 
-        public ApiRoleResourceRouteLogic(ApiRoleResourceRouteRepository apiRoleResourceRouteRepository, IConfiguration configuration)
+        public ApiRoleResourceRouteLogic(IApiRoleResourceRouteRepository apiRoleResourceRouteRepository, IConfiguration configuration)
             : base(configuration)
         {
             _apiRoleResourceRouteRepository = apiRoleResourceRouteRepository;
         }
 
-        public virtual async Task<IEnumerable<ApiRoleResourceRouteEntity>> List(QueryParamValueObject<ApiRoleResourceRouteEntity> model)
+        public async Task<IEnumerable<ApiRoleResourceRouteEntity>> List(QueryParamValueObject<ApiRoleResourceRouteEntity> model)
         {
             try
             {

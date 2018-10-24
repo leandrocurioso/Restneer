@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Restneer.Core.Domain.Model.ValueObject;
 
-namespace Restneer.Core.Application.Module
+namespace Restneer.Core.Application.Interface
 {
     public interface ILister<T>
     {

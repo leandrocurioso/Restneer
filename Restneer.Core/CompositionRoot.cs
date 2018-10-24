@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using Restneer.Core.Application.Boot;
+using Restneer.Core.Application.Service;
 using Restneer.Core.Application.UseCase;
 using Restneer.Core.Domain.Logic;
 using Restneer.Core.Infrastructure.Connection;
@@ -48,7 +49,7 @@ namespace Restneer.Core
                                                   container.GetInstance<ISqlConnectionFactory>().Fabricate(), Lifestyle.Scoped);
 
                 container.Register<RestneerCacheBoot>(Lifestyle.Singleton);
-
+                
                 container.Register<Sha256Utility>(Lifestyle.Singleton);
 
                 container.Register<JwtUtility>(Lifestyle.Singleton);
@@ -63,9 +64,9 @@ namespace Restneer.Core
         {
             try
             {
-                container.Register<ApiResourceRouteRepository>(Lifestyle.Scoped);
-                container.Register<ApiRoleResourceRouteRepository>(Lifestyle.Scoped);
-                container.Register<ApiUserRepository>(Lifestyle.Scoped);
+                container.Register<IApiResourceRouteRepository, ApiResourceRouteRepository>(Lifestyle.Scoped);
+                container.Register<IApiRoleResourceRouteRepository, ApiRoleResourceRouteRepository>(Lifestyle.Scoped);
+                container.Register<IApiUserRepository, ApiUserRepository>(Lifestyle.Scoped);
 
             }
             catch
@@ -78,9 +79,9 @@ namespace Restneer.Core
         {
             try
             {
-                container.Register<ApiResourceRouteLogic>(Lifestyle.Scoped);
-                container.Register<ApiRoleResourceRouteLogic>(Lifestyle.Scoped);
-                container.Register<ApiUserLogic>(Lifestyle.Scoped);
+                container.Register<IApiResourceRouteLogic, ApiResourceRouteLogic>(Lifestyle.Scoped);
+                container.Register<IApiRoleResourceRouteLogic, ApiRoleResourceRouteLogic>(Lifestyle.Scoped);
+                container.Register<IApiUserLogic, ApiUserLogic>(Lifestyle.Scoped);
             }
             catch
             {
@@ -92,7 +93,7 @@ namespace Restneer.Core
         {
             try
             {
-                container.Register<ApiUserUseCase>(Lifestyle.Scoped);
+                container.Register<IApiUserUseCase, ApiUserUseCase>(Lifestyle.Scoped);
             }
             catch
             {

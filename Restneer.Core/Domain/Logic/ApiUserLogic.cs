@@ -6,14 +6,15 @@ using Restneer.Core.Infrastructure.Utility;
 
 namespace Restneer.Core.Domain.Logic
 {
-    public class ApiUserLogic : AbstractLogic
+    public class ApiUserLogic : AbstractLogic, 
+                                IApiUserLogic
     {
-        readonly ApiUserRepository _apiUserRepository;
+        readonly IApiUserRepository _apiUserRepository;
         readonly JwtUtility _jwtUtility;
         readonly Sha256Utility _sha256Utility;
 
         public ApiUserLogic(
-            ApiUserRepository apiUserRepository,
+            IApiUserRepository apiUserRepository,
             JwtUtility jwtUtility,
             Sha256Utility sha256Utility,
             IConfiguration configuration)
@@ -24,7 +25,7 @@ namespace Restneer.Core.Domain.Logic
             _sha256Utility = sha256Utility;
         }
 
-        public virtual async Task<string> GetJwtToken(string email, string password)
+        public async Task<string> GetJwtToken(string email, string password)
         {
             try
             {
