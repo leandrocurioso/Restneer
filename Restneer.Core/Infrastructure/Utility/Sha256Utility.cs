@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Restneer.Core.Infrastructure.Utility
 {
-    public class Sha256Utility
+    public class Sha256Utility : ISha256Utility
     {
         public string Encrypt(string value)
         {

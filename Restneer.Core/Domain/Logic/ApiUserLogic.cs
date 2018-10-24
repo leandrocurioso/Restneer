@@ -10,13 +10,13 @@ namespace Restneer.Core.Domain.Logic
                                 IApiUserLogic
     {
         readonly IApiUserRepository _apiUserRepository;
-        readonly JwtUtility _jwtUtility;
-        readonly Sha256Utility _sha256Utility;
+        readonly IJwtUtility _jwtUtility;
+        readonly ISha256Utility _sha256Utility;
 
         public ApiUserLogic(
             IApiUserRepository apiUserRepository,
-            JwtUtility jwtUtility,
-            Sha256Utility sha256Utility,
+            IJwtUtility jwtUtility,
+            ISha256Utility sha256Utility,
             IConfiguration configuration)
             : base(configuration)
         {
@@ -30,6 +30,7 @@ namespace Restneer.Core.Domain.Logic
             try
             {
                 var encryptedPassword = _sha256Utility.Encrypt(password);
+                email = email.ToLower();
                 var apiUser = await _apiUserRepository.Authenticate(email, encryptedPassword);
                 if(apiUser == null) {
                     throw new Exception("Invalid credentials!");

@@ -4,6 +4,6 @@ namespace Restneer.Core.Application.UseCase
 {
     public interface IApiUserUseCase
     {
-        Task<string> GetJwtToken(string email, string password);
+        Task<string> Authenticate(string email, string password);
     }
 }

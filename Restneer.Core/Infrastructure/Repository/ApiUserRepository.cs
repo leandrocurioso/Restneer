@@ -24,7 +24,7 @@ namespace Restneer.Core.Infrastructure.Repository
                                    api_role.id
                             FROM api_user 
                             INNER JOIN api_role ON api_role.id = api_user.api_role_id
-                            WHERE api_user.email = @Email
+                            WHERE api_user.email = LOWER(@Email)
                             AND api_user.password = @Password
                             AND api_user.status = 1
                             LIMIT 1";
@@ -36,7 +36,7 @@ namespace Restneer.Core.Infrastructure.Repository
                     },
                     param: new
                     {
-                        Email = email.ToLower(),
+                        Email = email,
                         Password = encryptedPassword
                     }
                 );

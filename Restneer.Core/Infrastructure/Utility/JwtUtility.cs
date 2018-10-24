@@ -6,7 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Restneer.Core.Infrastructure.Utility
 {
-    public class JwtUtility
+    public class JwtUtility : IJwtUtility
     {
         public JwtSecurityToken GenerateJwt(string secretKey, string audience, string issuer, string role, string email, int daysToExpire)
         {

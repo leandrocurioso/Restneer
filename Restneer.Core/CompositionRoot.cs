@@ -50,9 +50,9 @@ namespace Restneer.Core
 
                 container.Register<RestneerCacheBoot>(Lifestyle.Singleton);
                 
-                container.Register<Sha256Utility>(Lifestyle.Singleton);
+                container.Register<ISha256Utility, Sha256Utility>(Lifestyle.Singleton);
 
-                container.Register<JwtUtility>(Lifestyle.Singleton);
+                container.Register<IJwtUtility, JwtUtility>(Lifestyle.Singleton);
             }
             catch
             {

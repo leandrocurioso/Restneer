@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using Restneer.Core.Application.Interface;
 using Restneer.Core.Domain.Logic;
 
 namespace Restneer.Core.Application.UseCase
@@ -15,7 +16,7 @@ namespace Restneer.Core.Application.UseCase
             _apiUserLogic = apiUserLogic;
         }
 
-        public virtual async Task<string> GetJwtToken(string email, string password)
+        public async Task<string> Authenticate(string email, string password)
         {
             try {
                 return await _apiUserLogic.GetJwtToken(email, password);

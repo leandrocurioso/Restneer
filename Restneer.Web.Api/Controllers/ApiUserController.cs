@@ -37,7 +37,7 @@ namespace Restneer.Web.Api.Controllers
                 using (AsyncScopedLifestyle.BeginScope(_container))
                 {
                     var apiUserUseCase = _container.GetInstance<IApiUserUseCase>();
-                    var jwtToken = await apiUserUseCase.GetJwtToken(requestModel.email, requestModel.password);
+                    var jwtToken = await apiUserUseCase.Authenticate(requestModel.email, requestModel.password);
                     HttpContext.Response.StatusCode = 200;
                     return new { token = jwtToken };
                 }
