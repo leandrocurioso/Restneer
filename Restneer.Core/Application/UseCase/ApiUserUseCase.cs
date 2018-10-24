@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
-using Restneer.Core.Application.Interface;
+using Microsoft.Extensions.Logging;
 using Restneer.Core.Domain.Logic;
 
 namespace Restneer.Core.Application.UseCase
@@ -10,8 +10,8 @@ namespace Restneer.Core.Application.UseCase
     {
         readonly IApiUserLogic _apiUserLogic;
 
-        public ApiUserUseCase(IApiUserLogic apiUserLogic, IConfiguration configuration)
-            :base(configuration)
+        public ApiUserUseCase(ILogger<IApiUserUseCase> logger, IApiUserLogic apiUserLogic, IConfiguration configuration)
+            :base(logger, configuration)
         {
             _apiUserLogic = apiUserLogic;
         }
@@ -19,6 +19,7 @@ namespace Restneer.Core.Application.UseCase
         public async Task<string> Authenticate(string email, string password)
         {
             try {
+                Logger.LogDebug("Getting jwt token");
                 return await _apiUserLogic.GetJwtToken(email, password);
             } catch {
                 throw;

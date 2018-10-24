@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.IO;
+using System.Net;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
@@ -17,6 +18,7 @@ namespace Restneer.Web.Api
                    .UseKestrel(options => {
                        options.AddServerHeader = false;
                     })
+                   .UseContentRoot(Directory.GetCurrentDirectory())
                    .UseStartup<Startup>();
     }
 }
