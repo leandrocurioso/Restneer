@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -6,16 +7,17 @@ using Restneer.Core.Model.ValueObject;
 
 namespace Restneer.Core.Application.Middleware
 {
-    public class ApiKeyMiddleware
+    public class ApiKeyMiddleware : IMiddleware
     {
+        public RequestDelegate Next { get; set; }
         public IConfiguration Configuration { get; set; }
-        readonly RequestDelegate _next;
 
         public ApiKeyMiddleware(RequestDelegate next, IConfiguration configuration)
         {
+            Next = next;
             Configuration = configuration;
-            _next = next;
         }
+
         public async Task InvokeAsync(HttpContext httpContext)
         {
             var requestApiKey = httpContext.Request.Headers["Api-Key"];
@@ -23,12 +25,12 @@ namespace Restneer.Core.Application.Middleware
 
             if (requestApiKey == validApiKey) 
             {
-                await _next(httpContext);
+                await Next(httpContext);
                 return;
             }
 
             httpContext.Response.ContentType = "application/json";
-            httpContext.Response.StatusCode = 400;
+            httpContext.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
             var errorObj = new { 
                 errors = new object[1] {
                     new ErrorResponseValueObject() {

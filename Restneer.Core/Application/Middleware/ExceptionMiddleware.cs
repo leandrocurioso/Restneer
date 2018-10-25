@@ -2,42 +2,54 @@
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using Restneer.Core.Application.CustomException;
 using Restneer.Core.Model.ValueObject;
 
 namespace Restneer.Core.Application.Middleware
 {
-    public class ExceptionMiddleware
+    public class ExceptionMiddleware  : IMiddleware
     {
-        readonly RequestDelegate _next;
+        public RequestDelegate Next { get; set; }
+        public IConfiguration Configuration { get; set; }
 
-        public ExceptionMiddleware(RequestDelegate next)
+        public ExceptionMiddleware(RequestDelegate next, IConfiguration configuration)
         {
-            _next = next;
+            Next = next;
+            Configuration = configuration;
         }
 
         public async Task InvokeAsync(HttpContext httpContext)
         {
             try
             {
-                await _next(httpContext);
+                await Next(httpContext);
                 return;
             }
-            catch (Exception ex)
+            catch (RestneerException ex)
             {
                 await HandleExceptionAsync(httpContext, ex);
             }
+            catch (Exception ex)
+            {
+                var restneerException = new RestneerException(
+                    ex.Message, 
+                    HttpStatusCode.InternalServerError
+                );
+                await HandleExceptionAsync(httpContext, restneerException);
+            }
         }
 
-        static async Task HandleExceptionAsync(HttpContext httpContext, Exception exception)
+        static async Task HandleExceptionAsync(HttpContext httpContext, RestneerException restneerException)
         {
             httpContext.Response.ContentType = "application/json";
-            httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            httpContext.Response.StatusCode = (int)restneerException.HttpStatusCode;
             var errorObj = new
             {
                 errors = new object[1] {
                     new ErrorResponseValueObject() {
-                        message = exception.Message
+                        message = restneerException.Message
                     }
                 }
             };

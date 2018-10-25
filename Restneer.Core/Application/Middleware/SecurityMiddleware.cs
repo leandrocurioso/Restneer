@@ -5,16 +5,17 @@ using Microsoft.Extensions.Configuration;
 
 namespace Restneer.Core.Application.Middleware
 {
-    public class SecurityMiddleware
+    public class SecurityMiddleware : IMiddleware
     {
+        public RequestDelegate Next { get; set; }
         public IConfiguration Configuration { get; set; }
-        readonly RequestDelegate _next;
 
         public SecurityMiddleware(RequestDelegate next, IConfiguration configuration)
         {
+            Next = next;
             Configuration = configuration;
-            _next = next;
         }
+
         public async Task InvokeAsync(HttpContext httpContext)
         {
             List<string> cleanedUrls = new List<string>();
@@ -26,7 +27,7 @@ namespace Restneer.Core.Application.Middleware
             }
 
 
-            await _next(httpContext);
+            await Next(httpContext);
 
             /*httpContext.Response.ContentType = "application/json";
             httpContext.Response.StatusCode = 403;

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
+using Restneer.Core.Application.CustomException;
 using Restneer.Core.Application.Interface;
 using Restneer.Core.Application.Service;
 
@@ -16,6 +18,18 @@ namespace Restneer.Core.Application.Controller
                 var requestModelService = new RequestModelService<T>(requestModel);
                 return requestModelService.Validate(body);
             } catch {
+                throw;
+            }
+        }
+
+        protected RestneerException ThrowError(Exception exception, HttpStatusCode httpStatusCode)
+        {
+            try
+            {
+                return new RestneerException(exception.Message, httpStatusCode);
+            }
+            catch
+            {
                 throw;
             }
         }

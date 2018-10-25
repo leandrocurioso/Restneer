@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Net;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
@@ -42,9 +44,9 @@ namespace Restneer.Web.Api.Controllers
                     return new { token = jwtToken };
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                throw ThrowError(ex, HttpStatusCode.Forbidden);
             }
         }
     }

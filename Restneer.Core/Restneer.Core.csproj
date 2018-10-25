@@ -38,5 +38,6 @@
     <Folder Include="Application\Service\" />
     <Folder Include="Application\Controller\" />
     <Folder Include="Application\Cache\" />
+    <Folder Include="Application\CustomException\" />
   </ItemGroup>
 </Project>

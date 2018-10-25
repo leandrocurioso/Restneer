@@ -21,7 +21,6 @@ namespace Restneer.Core.Application.UseCase
         public async Task<string> Authenticate(string email, string password)
         {
             try {
-                Logger.LogDebug("Getting jwt token");
                 return await _apiUserLogic.GetJwtToken(email, password);
             } catch {
                 throw;
