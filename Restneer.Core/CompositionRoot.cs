@@ -1,5 +1,4 @@
 ﻿using System.Data;
-using Restneer.Core.Application.Boot;
 using Restneer.Core.Application.Service;
 using Restneer.Core.Application.UseCase;
 using Restneer.Core.Domain.Logic;
@@ -48,7 +47,7 @@ namespace Restneer.Core
                 container.Register<IDbConnection>(() => 
                                                   container.GetInstance<ISqlConnectionFactory>().Fabricate(), Lifestyle.Scoped);
 
-                container.Register<RestneerCacheBoot>(Lifestyle.Singleton);
+                container.Register<IRestneerCacheService, RestneerCacheService>(Lifestyle.Singleton);
                 
                 container.Register<ISha256Utility, Sha256Utility>(Lifestyle.Singleton);
 

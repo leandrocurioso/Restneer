@@ -26,8 +26,8 @@ namespace Restneer.Web.Api.RequestModel.V1.ApiUser
         {
             try
             {
-                email = data?.GetValue("email")?.Value<string>();
-                password = data?.GetValue("password")?.Value<string>();
+                email = data.GetValue("email")?.Value<string>();
+                password = data.GetValue("password")?.Value<string>();
             }
             catch
             {

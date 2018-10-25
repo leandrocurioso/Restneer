@@ -7,7 +7,7 @@ using Restneer.Core.Model.ValueObject;
 
 namespace Restneer.Core.Application.Service
 {
-    public class RequestModelService<T> where T : IRequestModel
+    public class RequestModelService<T> : IRequestModelService<T> where T : IRequestModel
     {
         readonly T _requestModel;
 

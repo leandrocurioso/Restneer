@@ -5,16 +5,25 @@ using Restneer.Core.Domain.Model.Entity;
 using Dapper;
 using Restneer.Core.Domain.Model.ValueObject;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace Restneer.Core.Infrastructure.Repository
 {
-    public class ApiRoleResourceRouteRepository : AbstractRepository, 
-                                                  IApiRoleResourceRouteRepository
+    public class ApiRoleResourceRouteRepository : IApiRoleResourceRouteRepository
     {
+        readonly IDbConnection _connection;
+        public ILogger<IApiRoleResourceRouteRepository> Logger { get; set; }
+        public IConfiguration Configuration { get; set; }
 
-        public ApiRoleResourceRouteRepository(IDbConnection connection, IConfiguration configuration)
-            : base(connection, configuration)
+        public ApiRoleResourceRouteRepository(
+            IDbConnection connection,
+            ILogger<IApiRoleResourceRouteRepository> logger,
+            IConfiguration configuration
+        )
         {
+            _connection = connection;
+            Logger = logger;
+            Configuration = configuration;
         }
 
         public async Task<IEnumerable<ApiRoleResourceRouteEntity>> List(QueryParamValueObject<ApiRoleResourceRouteEntity> model)
@@ -34,7 +43,7 @@ namespace Restneer.Core.Infrastructure.Repository
                                    api_resource.`name` AS api_resource_name, 
                                    api_resource.`status` AS api_resource_status
                             FROM api_resource_route INNER JOIN api_resource ON api_resource_route.api_resource_id = api_resource.id";
-                return await Connection.QueryAsync<ApiRoleResourceRouteEntity>(sql);
+                return await _connection.QueryAsync<ApiRoleResourceRouteEntity>(sql);
             }
             catch
             {

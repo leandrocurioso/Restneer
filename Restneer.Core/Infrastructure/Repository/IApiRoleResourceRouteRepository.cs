@@ -3,7 +3,8 @@ using Restneer.Core.Domain.Model.Entity;
 
 namespace Restneer.Core.Infrastructure.Repository
 {
-    public interface IApiRoleResourceRouteRepository : ILister<ApiRoleResourceRouteEntity>
+    public interface IApiRoleResourceRouteRepository : ILister<ApiRoleResourceRouteEntity>,
+                                                       IRepository<IApiRoleResourceRouteRepository>
     {
     }
 }

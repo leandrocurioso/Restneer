@@ -4,15 +4,25 @@ using Restneer.Core.Domain.Model.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace Restneer.Core.Infrastructure.Repository
 {
-    public class ApiUserRepository : AbstractRepository, 
-                                     IApiUserRepository
+    public class ApiUserRepository : IApiUserRepository
     {
-        public ApiUserRepository(IDbConnection connection, IConfiguration configuration)
-             : base(connection, configuration)
+        readonly IDbConnection _connection;
+        public IConfiguration Configuration { get; set; }
+        public ILogger<IApiUserRepository> Logger { get; set; }
+
+        public ApiUserRepository(
+            IDbConnection connection, 
+            ILogger<IApiUserRepository> logger, 
+            IConfiguration configuration
+        )
         {
+            _connection = connection;
+            Logger = logger;
+            Configuration = configuration;
         }
 
         public async Task<ApiUserEntity> Authenticate(string email, string encryptedPassword)
@@ -28,7 +38,7 @@ namespace Restneer.Core.Infrastructure.Repository
                             AND api_user.password = @Password
                             AND api_user.status = 1
                             LIMIT 1";
-                var result = await Connection.QueryAsync<ApiUserEntity, ApiRoleEntity, ApiUserEntity>(
+                var result = await _connection.QueryAsync<ApiUserEntity, ApiRoleEntity, ApiUserEntity>(
                     sql,
                     map: (apiUser, apiRole) => {
                         apiUser.ApiRole = apiRole;

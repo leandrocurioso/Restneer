@@ -3,18 +3,18 @@ using Restneer.Core.Domain.Logic;
 using Restneer.Core.Domain.Model.Entity;
 using Restneer.Core.Domain.Model.ValueObject;
 
-namespace Restneer.Core.Application.Boot
+namespace Restneer.Core.Application.Service
 {
-    public class RestneerCacheBoot
+    public class RestneerCacheService : IRestneerCacheService
     {
         readonly ApiResourceRouteLogic _apiResourceRouteLogic;
 
-        public RestneerCacheBoot(ApiResourceRouteLogic apiResourceRouteLogic)
+        public RestneerCacheService(ApiResourceRouteLogic apiResourceRouteLogic)
         {
             _apiResourceRouteLogic = apiResourceRouteLogic;
         }
 
-        public virtual async void Load()
+        public async void Load()
         {
             try
             {
