@@ -32,7 +32,7 @@ namespace Restneer.Core.Application.Middleware
             httpContext.Response.ContentType = "application/json";
             httpContext.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
             var errorObj = new { 
-                errors = new object[1] {
+                errors = new object[] {
                     new ErrorResponseValueObject() {
                         message = "Invalid api key"
                     }

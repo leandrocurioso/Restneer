@@ -26,9 +26,8 @@ namespace Restneer.Core.Application.Middleware
                 }
             }
 
-
             await Next(httpContext);
-
+            return;
             /*httpContext.Response.ContentType = "application/json";
             httpContext.Response.StatusCode = 403;
             await httpContext.Response.WriteAsync(new ErrorResponseValueObject()

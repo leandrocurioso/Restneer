@@ -65,9 +65,9 @@ namespace Restneer.Web.Api
             }
 
             app.UseHttpsRedirection();
-            app.UseMiddleware<ExceptionMiddleware>();
             app.UseMiddleware<ApiKeyMiddleware>();
             app.UseMiddleware<SecurityMiddleware>();
+            app.UseMiddleware<ExceptionMiddleware>();
             app.UseMvc();
             app.UseMiddleware<NotFoundMiddleware>();
         }

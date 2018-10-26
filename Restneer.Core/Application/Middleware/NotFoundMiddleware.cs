@@ -26,7 +26,7 @@ namespace Restneer.Core.Application.Middleware
             {
                 var errorObj = new
                 {
-                    errors = new object[1] {
+                    errors = new object[] {
                     new ErrorResponseValueObject() {
                         message =  "Not Found"
                     }

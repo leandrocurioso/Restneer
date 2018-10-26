@@ -1,6 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Net;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Restneer.Core.Application.CustomException;
 using Restneer.Core.Domain.Logic;
 
 namespace Restneer.Core.Application.UseCase
@@ -20,11 +23,11 @@ namespace Restneer.Core.Application.UseCase
 
         public async Task<string> Authenticate(string email, string password)
         {
-            try {
+            // try {
                 return await _apiUserLogic.GetJwtToken(email, password);
-            } catch {
+            /* } catch {
                 throw;
-            }
+            } */
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using Restneer.Core.Application.CustomException;
 using Restneer.Core.Application.Interface;
@@ -9,24 +10,32 @@ using Restneer.Core.Application.Service;
 
 namespace Restneer.Core.Application.Controller
 {
-    public class RestneerController : ControllerBase
+    public class RestneerController<T> : ControllerBase
     {
-        protected T ValidateRequest<T>(JObject body) where T : IRequestModel
+        protected readonly ILogger<T> Logger;
+
+        public RestneerController(ILogger<T> logger)
+        {
+            Logger = logger;
+        }
+
+        protected U ValidateRequest<U>(JObject body) where U : IRequestModel
         {
             try {
-                var requestModel = (T) Activator.CreateInstance(typeof(T));
-                var requestModelService = new RequestModelService<T>(requestModel);
+                var requestModel = (U) Activator.CreateInstance(typeof(U));
+                var requestModelService = new RequestModelService<U>(requestModel);
                 return requestModelService.Validate(body);
             } catch {
                 throw;
             }
         }
 
-        protected RestneerException ThrowError(Exception exception, HttpStatusCode httpStatusCode)
+        protected object Respond(HttpStatusCode httpStatusCode, object payload = null)
         {
             try
             {
-                return new RestneerException(exception.Message, httpStatusCode);
+                HttpContext.Response.StatusCode = (int) httpStatusCode;
+                return new { payload };
             }
             catch
             {
@@ -34,11 +43,11 @@ namespace Restneer.Core.Application.Controller
             }
         }
 
-        protected object RespondError(int statusCode, IEnumerable<object> errors)
+        protected object RespondRequestError(HttpStatusCode httpStatusCode, IEnumerable<object> errors)
         {
             try
             {
-                HttpContext.Response.StatusCode = statusCode;
+                HttpContext.Response.StatusCode = (int) httpStatusCode;
                 return new { errors };
             }
             catch

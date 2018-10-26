@@ -27,17 +27,18 @@ namespace Restneer.Core.Application.Middleware
                 await Next(httpContext);
                 return;
             }
-            catch (RestneerException ex)
-            {
-                await HandleExceptionAsync(httpContext, ex);
-            }
             catch (Exception ex)
             {
-                var restneerException = new RestneerException(
-                    ex.Message, 
-                    HttpStatusCode.InternalServerError
-                );
-                await HandleExceptionAsync(httpContext, restneerException);
+                if (ex is RestneerException) {
+                    await HandleExceptionAsync(httpContext, (RestneerException) ex);
+                } else {
+                    var restneerException = new RestneerException(
+                        ex.Message,
+                        HttpStatusCode.InternalServerError
+                    );
+                    await HandleExceptionAsync(httpContext, restneerException);
+                }
+                return;
             }
         }
 
@@ -47,7 +48,7 @@ namespace Restneer.Core.Application.Middleware
             httpContext.Response.StatusCode = (int)restneerException.HttpStatusCode;
             var errorObj = new
             {
-                errors = new object[1] {
+                errors = new object[] {
                     new ErrorResponseValueObject() {
                         message = restneerException.Message
                     }

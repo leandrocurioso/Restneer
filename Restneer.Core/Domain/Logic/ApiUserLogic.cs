@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Restneer.Core.Application.CustomException;
 using Restneer.Core.Infrastructure.Repository;
 using Restneer.Core.Infrastructure.Utility;
 
@@ -38,9 +40,8 @@ namespace Restneer.Core.Domain.Logic
                 email = email.ToLower();
                 var apiUser = await _apiUserRepository.Authenticate(email, encryptedPassword);
                 if (apiUser == null)
-                {
-                    throw new Exception("Invalid credentials!");
-                }
+                    // return null;
+                    throw new RestneerException("Invalid credentials", HttpStatusCode.Forbidden);
                 var token = _jwtUtility.GenerateJwt(
                     Configuration.GetSection("Server:Jwt:SecretKey").Value,
                     Configuration.GetSection("Server:Jwt:Audience").Value,
@@ -50,7 +51,7 @@ namespace Restneer.Core.Domain.Logic
                     Convert.ToInt32(Configuration.GetSection("Server:Jwt:DaysToExpire").Value)
                 );
                 return token.RawData;
-            }
+            } 
             catch
             {
                 throw;

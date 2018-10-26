@@ -3,6 +3,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using Restneer.Core.Application.Controller;
 using Restneer.Core.Application.Service;
@@ -16,11 +17,12 @@ namespace Restneer.Web.Api.Controllers
     [ApiController]
     [Route("v1/api-user")]
     [Produces("application/json")]
-    public class ApiUserV1Controller : RestneerController
+    public class V1ApiUserController : RestneerController<V1ApiUserController>
     {
         readonly Container _container;
 
-        public ApiUserV1Controller(Container container)
+        public V1ApiUserController(Container container, ILogger<V1ApiUserController> logger)
+            :base(logger)
         {
             _container = container;
         }
@@ -33,20 +35,22 @@ namespace Restneer.Web.Api.Controllers
                 var requestModel = ValidateRequest<AuthenticateRequestModel>(body);
                 if (!requestModel.IsValid)
                 {
-                    return RespondError(400, requestModel.ResponseErrors);
+                    return RespondRequestError(HttpStatusCode.BadRequest, requestModel.ResponseErrors);
                 }
 
                 using (AsyncScopedLifestyle.BeginScope(_container))
                 {
                     var apiUserUseCase = _container.GetInstance<IApiUserUseCase>();
                     var jwtToken = await apiUserUseCase.Authenticate(requestModel.email, requestModel.password);
-                    HttpContext.Response.StatusCode = 200;
-                    return new { token = jwtToken };
+                    if (jwtToken == null) {
+                        // return Respond(HttpStatusCode.Forbidden);
+                    }
+                    return Respond(HttpStatusCode.OK, new { token = jwtToken });
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                throw ThrowError(ex, HttpStatusCode.Forbidden);
+                throw;
             }
         }
     }
