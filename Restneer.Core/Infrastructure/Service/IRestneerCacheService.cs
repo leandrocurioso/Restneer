@@ -1,4 +1,4 @@
-﻿namespace Restneer.Core.Application.Service
+﻿namespace Restneer.Core.Infrastructure.Service
 {
     public interface IRestneerCacheService
     {

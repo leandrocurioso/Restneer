@@ -1,11 +1,13 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Restneer.Core.Infrastructure.ResultFlow;
 
-namespace Restneer.Core.Application.UseCase
+namespace Restneer.Core.Domain.UseCase
 {
     public interface IUseCase<T>
     {
         ILogger<T> Logger { get; set; }
         IConfiguration Configuration { get; set; }
+        IResultFlowFactory ResultFlowFactory { get; set; }
     }
 }

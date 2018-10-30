@@ -8,6 +8,7 @@
     <Compile Remove="Class1.cs" />
     <Compile Remove="Infrastructure\SqlCompiler\ISqlCompiler.cs" />
     <Compile Remove="Infrastructure\SqlCompiler\MySqlCompiler.cs" />
+    <Compile Remove="Application\CustomException\RestneerException.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="SimpleInjector" Version="4.3.0" />
@@ -28,16 +29,17 @@
     <Folder Include="Infrastructure\Repository\" />
     <Folder Include="Domain\Model\" />
     <Folder Include="Domain\Model\Entity\" />
-    <Folder Include="Application\UseCase\" />
     <Folder Include="Domain\Logic\" />
     <Folder Include="Domain\Model\Enum\" />
-    <Folder Include="Domain\Model\ValueObject\" />
-    <Folder Include="Application\Interface\" />
     <Folder Include="Application\Middleware\" />
     <Folder Include="Infrastructure\Utility\" />
-    <Folder Include="Application\Service\" />
     <Folder Include="Application\Controller\" />
-    <Folder Include="Application\Cache\" />
-    <Folder Include="Application\CustomException\" />
+    <Folder Include="Infrastructure\Interface\" />
+    <Folder Include="Domain\UseCase\" />
+    <Folder Include="Infrastructure\Cache\" />
+    <Folder Include="Infrastructure\Service\" />
+    <Folder Include="Infrastructure\Model\" />
+    <Folder Include="Infrastructure\Model\ValueObject\" />
+    <Folder Include="Infrastructure\ResultFlow\" />
   </ItemGroup>
 </Project>

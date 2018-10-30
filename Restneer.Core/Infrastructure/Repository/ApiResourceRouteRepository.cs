@@ -5,28 +5,32 @@ using Dapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Restneer.Core.Domain.Model.Entity;
-using Restneer.Core.Domain.Model.ValueObject;
+using Restneer.Core.Infrastructure.Model.ValueObject;
+using Restneer.Core.Infrastructure.ResultFlow;
 
 namespace Restneer.Core.Infrastructure.Repository
 {
     public class ApiResourceRouteRepository : IApiResourceRouteRepository
     {
         readonly IDbConnection _connection;
+        public IResultFlowFactory ResultFlowFactory { get; set; }
         public ILogger<IApiResourceRouteRepository> Logger { get; set; }
         public IConfiguration Configuration { get; set; }
 
         public ApiResourceRouteRepository(
             IDbConnection connection,
+            IResultFlowFactory resultFlowFactory,
             ILogger<IApiResourceRouteRepository> logger,
             IConfiguration configuration
         )
         {
             _connection = connection;
+            ResultFlowFactory = resultFlowFactory;
             Logger = logger;
             Configuration = configuration;
         }
 
-        public async Task<IEnumerable<ApiResourceRouteEntity>> List(QueryParamValueObject<ApiResourceRouteEntity> model)
+        public async Task<ResultFlow<IEnumerable<ApiResourceRouteEntity>>> List(QueryParamValueObject<ApiResourceRouteEntity> model)
         {
             try
             {
@@ -35,7 +39,7 @@ namespace Restneer.Core.Infrastructure.Repository
                             INNER JOIN api_resource ON api_resource_route.api_resource_id = api_resource.id
                             WHERE api_resource_route.status = 1
                             AND api_resource.status = 1";
-                return await _connection.QueryAsync<ApiResourceRouteEntity, ApiResourceEntity, ApiResourceRouteEntity>(
+                var result = await _connection.QueryAsync<ApiResourceRouteEntity, ApiResourceEntity, ApiResourceRouteEntity>(
                     sql,
                     (apiResourceRoute, apiResource) =>
                     {
@@ -43,6 +47,7 @@ namespace Restneer.Core.Infrastructure.Repository
                         return apiResourceRoute;
                     }
                 );
+                return ResultFlowFactory.Success<IEnumerable<ApiResourceRouteEntity>>(result);
             }
             catch
             {

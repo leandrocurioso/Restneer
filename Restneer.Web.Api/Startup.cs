@@ -10,7 +10,6 @@ using SimpleInjector;
 using SimpleInjector.Integration.AspNetCore.Mvc;
 using SimpleInjector.Lifestyles;
 using Restneer.Core.Application.Middleware;
-using Restneer.Core.Application.Service;
 
 namespace Restneer.Web.Api
 {
@@ -64,7 +63,7 @@ namespace Restneer.Web.Api
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
             app.UseMiddleware<ApiKeyMiddleware>();
             app.UseMiddleware<SecurityMiddleware>();
             app.UseMiddleware<ExceptionMiddleware>();

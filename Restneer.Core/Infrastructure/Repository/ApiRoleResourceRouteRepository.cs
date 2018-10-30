@@ -3,30 +3,34 @@ using System.Data;
 using System.Threading.Tasks;
 using Restneer.Core.Domain.Model.Entity;
 using Dapper;
-using Restneer.Core.Domain.Model.ValueObject;
+using Restneer.Core.Infrastructure.Model.ValueObject;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Restneer.Core.Infrastructure.ResultFlow;
 
 namespace Restneer.Core.Infrastructure.Repository
 {
     public class ApiRoleResourceRouteRepository : IApiRoleResourceRouteRepository
     {
         readonly IDbConnection _connection;
+        public IResultFlowFactory ResultFlowFactory { get; set; }
         public ILogger<IApiRoleResourceRouteRepository> Logger { get; set; }
         public IConfiguration Configuration { get; set; }
 
         public ApiRoleResourceRouteRepository(
             IDbConnection connection,
+            IResultFlowFactory resultFlowFactory,
             ILogger<IApiRoleResourceRouteRepository> logger,
             IConfiguration configuration
         )
         {
             _connection = connection;
+            ResultFlowFactory = resultFlowFactory;
             Logger = logger;
             Configuration = configuration;
         }
 
-        public async Task<IEnumerable<ApiRoleResourceRouteEntity>> List(QueryParamValueObject<ApiRoleResourceRouteEntity> model)
+        public async Task<ResultFlow<IEnumerable<ApiRoleResourceRouteEntity>>> List(QueryParamValueObject<ApiRoleResourceRouteEntity> model)
         {
             try
             {
@@ -42,8 +46,10 @@ namespace Restneer.Core.Infrastructure.Repository
                                    api_resource.uri, 
                                    api_resource.`name` AS api_resource_name, 
                                    api_resource.`status` AS api_resource_status
-                            FROM api_resource_route INNER JOIN api_resource ON api_resource_route.api_resource_id = api_resource.id";
-                return await _connection.QueryAsync<ApiRoleResourceRouteEntity>(sql);
+                            FROM api_resource_route 
+                            INNER JOIN api_resource ON api_resource_route.api_resource_id = api_resource.id";
+                var result = await _connection.QueryAsync<ApiRoleResourceRouteEntity>(sql);
+                return ResultFlowFactory.Success<IEnumerable<ApiRoleResourceRouteEntity>> (result);
             }
             catch
             {

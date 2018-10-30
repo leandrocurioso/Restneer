@@ -4,9 +4,10 @@ using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
-using Restneer.Core.Application.CustomException;
-using Restneer.Core.Application.Interface;
-using Restneer.Core.Application.Service;
+using Restneer.Core.Infrastructure.Interface;
+using Restneer.Core.Infrastructure.Model.ValueObject;
+using Restneer.Core.Infrastructure.ResultFlow;
+using Restneer.Core.Infrastructure.Service;
 
 namespace Restneer.Core.Application.Controller
 {
@@ -30,7 +31,7 @@ namespace Restneer.Core.Application.Controller
             }
         }
 
-        protected object Respond(HttpStatusCode httpStatusCode, object payload = null)
+        protected object RespondSuccess(HttpStatusCode httpStatusCode, object payload = null)
         {
             try
             {
@@ -43,12 +44,22 @@ namespace Restneer.Core.Application.Controller
             }
         }
 
-        protected object RespondRequestError(HttpStatusCode httpStatusCode, IEnumerable<object> errors)
+        protected object RespondError(HttpStatusCode httpStatusCode, object error)
         {
             try
             {
                 HttpContext.Response.StatusCode = (int) httpStatusCode;
-                return new { errors };
+                if (error is IEnumerable<object>) {
+                    return new { errors = error };
+                } else {
+                    return new { 
+                        errors = new object[] {
+                            new ErrorResponseValueObject() {
+                                message = (string) error
+                            }
+                        }
+                    };
+                }
             }
             catch
             {

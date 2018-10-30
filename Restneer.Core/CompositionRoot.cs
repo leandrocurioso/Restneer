@@ -1,10 +1,11 @@
 ﻿using System.Data;
-using Restneer.Core.Application.Service;
-using Restneer.Core.Application.UseCase;
 using Restneer.Core.Domain.Logic;
+using Restneer.Core.Domain.UseCase;
 using Restneer.Core.Infrastructure.Connection;
 using Restneer.Core.Infrastructure.Connection.MySql;
 using Restneer.Core.Infrastructure.Repository;
+using Restneer.Core.Infrastructure.ResultFlow;
+using Restneer.Core.Infrastructure.Service;
 using Restneer.Core.Infrastructure.Utility;
 using SimpleInjector;
 
@@ -33,6 +34,7 @@ namespace Restneer.Core
             try
             {
                 container.Register<ISqlConnectionFactory, MySqlConnectionFactory>(Lifestyle.Singleton);
+                container.Register<IResultFlowFactory, ResultFlowFactory>(Lifestyle.Singleton);
             }
             catch
             {
@@ -44,13 +46,9 @@ namespace Restneer.Core
         {
             try
             {
-                container.Register<IDbConnection>(() => 
-                                                  container.GetInstance<ISqlConnectionFactory>().Fabricate(), Lifestyle.Scoped);
-
+                container.Register<IDbConnection>(() => container.GetInstance<ISqlConnectionFactory>().Fabricate(), Lifestyle.Scoped);
                 container.Register<IRestneerCacheService, RestneerCacheService>(Lifestyle.Singleton);
-                
                 container.Register<ISha256Utility, Sha256Utility>(Lifestyle.Singleton);
-
                 container.Register<IJwtUtility, JwtUtility>(Lifestyle.Singleton);
             }
             catch
@@ -66,7 +64,6 @@ namespace Restneer.Core
                 container.Register<IApiResourceRouteRepository, ApiResourceRouteRepository>(Lifestyle.Scoped);
                 container.Register<IApiRoleResourceRouteRepository, ApiRoleResourceRouteRepository>(Lifestyle.Scoped);
                 container.Register<IApiUserRepository, ApiUserRepository>(Lifestyle.Scoped);
-
             }
             catch
             {

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using Restneer.Core.Model.ValueObject;
+using Restneer.Core.Infrastructure.Model.ValueObject;
 
 namespace Restneer.Core.Application.Middleware
 {

@@ -6,8 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using Restneer.Core.Application.Controller;
-using Restneer.Core.Application.Service;
-using Restneer.Core.Application.UseCase;
+using Restneer.Core.Domain.UseCase;
 using Restneer.Web.Api.RequestModel.V1.ApiUser;
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
@@ -35,17 +34,18 @@ namespace Restneer.Web.Api.Controllers
                 var requestModel = ValidateRequest<AuthenticateRequestModel>(body);
                 if (!requestModel.IsValid)
                 {
-                    return RespondRequestError(HttpStatusCode.BadRequest, requestModel.ResponseErrors);
+                    return RespondError(HttpStatusCode.BadRequest, requestModel.ResponseErrors);
                 }
 
                 using (AsyncScopedLifestyle.BeginScope(_container))
                 {
                     var apiUserUseCase = _container.GetInstance<IApiUserUseCase>();
-                    var jwtToken = await apiUserUseCase.Authenticate(requestModel.email, requestModel.password);
-                    if (jwtToken == null) {
-                        // return Respond(HttpStatusCode.Forbidden);
+                    var testResultFlow = await apiUserUseCase.Authenticate(requestModel.email, requestModel.password);
+                    if (testResultFlow.IsSuccessWithResult())
+                    {
+                        return RespondSuccess(HttpStatusCode.OK, new { token = testResultFlow.Result });
                     }
-                    return Respond(HttpStatusCode.OK, new { token = jwtToken });
+                    return RespondError(HttpStatusCode.Forbidden, testResultFlow.Message );
                 }
             }
             catch

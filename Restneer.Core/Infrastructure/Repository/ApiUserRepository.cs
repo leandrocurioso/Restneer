@@ -5,29 +5,33 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Restneer.Core.Infrastructure.ResultFlow;
 
 namespace Restneer.Core.Infrastructure.Repository
 {
     public class ApiUserRepository : IApiUserRepository
     {
         readonly IDbConnection _connection;
-        public IConfiguration Configuration { get; set; }
         public ILogger<IApiUserRepository> Logger { get; set; }
+        public IResultFlowFactory ResultFlowFactory { get; set; }
+        public IConfiguration Configuration { get; set; }
 
         public ApiUserRepository(
             IDbConnection connection, 
-            ILogger<IApiUserRepository> logger, 
+            IResultFlowFactory resultFlowFactory,
+            ILogger<IApiUserRepository> logger,
             IConfiguration configuration
         )
         {
             _connection = connection;
+            ResultFlowFactory = resultFlowFactory;
             Logger = logger;
             Configuration = configuration;
         }
 
-        public async Task<ApiUserEntity> Authenticate(string email, string encryptedPassword)
+        public async Task<ResultFlow<ApiUserEntity>> Authenticate(string email, string encryptedPassword)
         {
-            try 
+            try
             {
                 var sql = @"SELECT api_user.id,
                                    api_user.email,
@@ -50,11 +54,12 @@ namespace Restneer.Core.Infrastructure.Repository
                         Password = encryptedPassword
                     }
                 );
-                return result.FirstOrDefault();
-            } catch {
+                return ResultFlowFactory.Success<ApiUserEntity>(result.FirstOrDefault());
+            }
+            catch
+            {
                 throw;
             }
-
         }
     }
 }

@@ -2,10 +2,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Newtonsoft.Json.Linq;
-using Restneer.Core.Application.Interface;
-using Restneer.Core.Model.ValueObject;
+using Restneer.Core.Infrastructure.Interface;
+using Restneer.Core.Infrastructure.Model.ValueObject;
 
-namespace Restneer.Core.Application.Service
+namespace Restneer.Core.Infrastructure.Service
 {
     public class RequestModelService<T> : IRequestModelService<T> where T : IRequestModel
     {

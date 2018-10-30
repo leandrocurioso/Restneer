@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Restneer.Core.Domain.Model.ValueObject
+namespace Restneer.Core.Infrastructure.Model.ValueObject
 {
     public class QueryParamValueObject<T>
     {

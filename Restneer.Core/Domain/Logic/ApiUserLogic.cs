@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Net;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Restneer.Core.Application.CustomException;
+using Restneer.Core.Domain.Model.Entity;
 using Restneer.Core.Infrastructure.Repository;
+using Restneer.Core.Infrastructure.ResultFlow;
 using Restneer.Core.Infrastructure.Utility;
 
 namespace Restneer.Core.Domain.Logic
@@ -14,6 +14,7 @@ namespace Restneer.Core.Domain.Logic
         readonly IApiUserRepository _apiUserRepository;
         readonly IJwtUtility _jwtUtility;
         readonly ISha256Utility _sha256Utility;
+        public IResultFlowFactory ResultFlowFactory { get; set; }
         public ILogger<IApiUserLogic> Logger { get; set; }
         public IConfiguration Configuration { get; set; }
 
@@ -21,6 +22,7 @@ namespace Restneer.Core.Domain.Logic
             IApiUserRepository apiUserRepository,
             IJwtUtility jwtUtility,
             ISha256Utility sha256Utility,
+            IResultFlowFactory resultFlowFactory,
             ILogger<IApiUserLogic> logger,
             IConfiguration configuration
         )
@@ -28,20 +30,23 @@ namespace Restneer.Core.Domain.Logic
             _apiUserRepository = apiUserRepository;
             _jwtUtility = jwtUtility;
             _sha256Utility = sha256Utility;
+            ResultFlowFactory = resultFlowFactory;
             Logger = logger;
             Configuration = configuration;
         }
 
-        public async Task<string> GetJwtToken(string email, string password)
+        public async Task<ResultFlow<string>> GetJwtToken(string email, string password)
         {
             try
             {
                 var encryptedPassword = _sha256Utility.Encrypt(password);
                 email = email.ToLower();
-                var apiUser = await _apiUserRepository.Authenticate(email, encryptedPassword);
-                if (apiUser == null)
-                    // return null;
-                    throw new RestneerException("Invalid credentials", HttpStatusCode.Forbidden);
+                var authenticateResultFlow = await _apiUserRepository.Authenticate(email, encryptedPassword);
+                if (authenticateResultFlow.IsSuccessWithoutResult()) 
+                {
+                    return ResultFlowFactory.Exception<string>("Invalid credentials");
+                }
+                var apiUser = authenticateResultFlow.Result;
                 var token = _jwtUtility.GenerateJwt(
                     Configuration.GetSection("Server:Jwt:SecretKey").Value,
                     Configuration.GetSection("Server:Jwt:Audience").Value,
@@ -50,8 +55,8 @@ namespace Restneer.Core.Domain.Logic
                     apiUser.Email,
                     Convert.ToInt32(Configuration.GetSection("Server:Jwt:DaysToExpire").Value)
                 );
-                return token.RawData;
-            } 
+                return ResultFlowFactory.Success<string>(token.RawData);
+            }
             catch
             {
                 throw;

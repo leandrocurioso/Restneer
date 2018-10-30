@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json.Linq;
-using Restneer.Core.Application.Interface;
-using Restneer.Core.Model.ValueObject;
+using Restneer.Core.Infrastructure.Interface;
+using Restneer.Core.Infrastructure.Model.ValueObject;
 
 namespace Restneer.Web.Api.RequestModel.V1.ApiUser
 {

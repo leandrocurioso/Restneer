@@ -1,4 +1,4 @@
-﻿namespace Restneer.Core.Model.ValueObject
+﻿namespace Restneer.Core.Infrastructure.Model.ValueObject
 {
     public class FormErrorResponseValueObject : ErrorResponseValueObject
     {

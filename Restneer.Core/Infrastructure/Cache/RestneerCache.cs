@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Restneer.Core.Domain.Model.Entity;
 
-namespace Restneer.Core.Application.Cache
+namespace Restneer.Core.Infrastructure.Cache
 {
     public static class RestneerCache
     {
