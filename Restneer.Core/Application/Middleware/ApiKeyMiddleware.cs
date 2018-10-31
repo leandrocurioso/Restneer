@@ -2,19 +2,26 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Restneer.Core.Infrastructure.Model.ValueObject;
 
 namespace Restneer.Core.Application.Middleware
 {
-    public class ApiKeyMiddleware : IMiddleware
+    public class ApiKeyMiddleware : IMiddleware<ApiKeyMiddleware>
     {
         public RequestDelegate Next { get; set; }
+        public ILogger<ApiKeyMiddleware> Logger { get; set; }
         public IConfiguration Configuration { get; set; }
 
-        public ApiKeyMiddleware(RequestDelegate next, IConfiguration configuration)
+        public ApiKeyMiddleware(
+            RequestDelegate next,
+            ILogger<ApiKeyMiddleware> logger,
+            IConfiguration configuration
+        )
         {
             Next = next;
+            Logger = logger;
             Configuration = configuration;
         }
 

@@ -2,17 +2,24 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace Restneer.Core.Application.Middleware
 {
-    public class SecurityMiddleware : IMiddleware
+    public class SecurityMiddleware : IMiddleware<SecurityMiddleware>
     {
         public RequestDelegate Next { get; set; }
+        public ILogger<SecurityMiddleware> Logger { get; set; }
         public IConfiguration Configuration { get; set; }
 
-        public SecurityMiddleware(RequestDelegate next, IConfiguration configuration)
+        public SecurityMiddleware(
+            RequestDelegate next,
+            ILogger<SecurityMiddleware> logger,
+            IConfiguration configuration
+        )
         {
             Next = next;
+            Logger = logger;
             Configuration = configuration;
         }
 

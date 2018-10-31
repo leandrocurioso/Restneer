@@ -3,19 +3,26 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Restneer.Core.Infrastructure.Model.ValueObject;
 
 namespace Restneer.Core.Application.Middleware
 {
-    public class ExceptionMiddleware  : IMiddleware
+    public class ExceptionMiddleware  : IMiddleware<ExceptionMiddleware>
     {
         public RequestDelegate Next { get; set; }
+        public ILogger<ExceptionMiddleware> Logger { get; set; }
         public IConfiguration Configuration { get; set; }
 
-        public ExceptionMiddleware(RequestDelegate next, IConfiguration configuration)
+        public ExceptionMiddleware(
+            RequestDelegate next,
+            ILogger<ExceptionMiddleware> logger,
+            IConfiguration configuration
+        )
         {
             Next = next;
+            Logger = logger;
             Configuration = configuration;
         }
 
@@ -33,8 +40,12 @@ namespace Restneer.Core.Application.Middleware
             }
         }
 
-        static async Task HandleExceptionAsync(HttpContext httpContext, Exception exception)
+        public  async Task HandleExceptionAsync(HttpContext httpContext, Exception exception)
         {
+            Logger.LogError(JsonConvert.SerializeObject(new {
+                Message = exception.Message,
+                StackTrace = exception.StackTrace
+            }));
             httpContext.Response.ContentType = "application/json";
             httpContext.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
             var errorObj = new

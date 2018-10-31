@@ -11,6 +11,7 @@ using SimpleInjector.Integration.AspNetCore.Mvc;
 using SimpleInjector.Lifestyles;
 using Restneer.Core.Application.Middleware;
 using Restneer.Core.Infrastructure.Service;
+using System;
 
 namespace Restneer.Web.Api
 {
@@ -50,11 +51,6 @@ namespace Restneer.Web.Api
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             InitializeContainer(app);
-            using (AsyncScopedLifestyle.BeginScope(_container))
-            {
-               var restneerCacheService = _container.GetInstance<IRestneerCacheService>();
-               restneerCacheService.Load();
-            }
             if (env.IsDevelopment())
             {
                 // app.UseDeveloperExceptionPage();
@@ -84,6 +80,12 @@ namespace Restneer.Web.Api
 
             // Allow Simple Injector to resolve services from ASP.NET Core.
             _container.AutoCrossWireAspNetComponents(app);
+
+            using (AsyncScopedLifestyle.BeginScope(_container))
+            {
+                var restneerCacheService = _container.GetInstance<IRestneerCacheService>();
+                restneerCacheService.Load();
+            }
         }
     }
 }

@@ -2,19 +2,26 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Restneer.Core.Infrastructure.Model.ValueObject;
 
 namespace Restneer.Core.Application.Middleware
 {
-    public class NotFoundMiddleware : IMiddleware
+    public class NotFoundMiddleware : IMiddleware<NotFoundMiddleware>
     {
         public RequestDelegate Next { get; set; }
+        public ILogger<NotFoundMiddleware> Logger { get; set; }
         public IConfiguration Configuration { get; set; }
 
-        public NotFoundMiddleware(RequestDelegate next, IConfiguration configuration)
+        public NotFoundMiddleware(
+            RequestDelegate next,
+            ILogger<NotFoundMiddleware> logger,
+            IConfiguration configuration
+        )
         {
             Next = next;
+            Logger = logger;
             Configuration = configuration;
         }
 

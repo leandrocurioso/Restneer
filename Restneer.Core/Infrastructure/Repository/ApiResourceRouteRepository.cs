@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 using Dapper;
@@ -49,9 +50,9 @@ namespace Restneer.Core.Infrastructure.Repository
                 );
                 return ResultFlowFactory.Success<IEnumerable<ApiResourceRouteEntity>>(result);
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
     }
