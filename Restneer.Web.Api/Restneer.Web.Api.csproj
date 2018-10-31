@@ -4,6 +4,14 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DefineConstants></DefineConstants>
+    <WarningLevel></WarningLevel>
+    <TreatWarningsAsErrors></TreatWarningsAsErrors>
+    <DocumentationFile></DocumentationFile>
+    <ExternalConsole>false</ExternalConsole>
+    <SignAssembly></SignAssembly>
+  </PropertyGroup>
   <ItemGroup> 
     <Folder Include="wwwroot\" />
     <Folder Include="RequestModel\" />

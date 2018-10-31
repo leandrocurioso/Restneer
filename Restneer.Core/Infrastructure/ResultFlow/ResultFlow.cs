@@ -11,18 +11,12 @@
             Message = message;
         }
 
-        public bool IsSuccessWithResult()
+        public bool IsSuccess()
         {
             try
             {
                 if (this is SuccessResultFlow<T>)
-                {
-                    if (Result == null)
-                    {
-                        return false;
-                    }
                     return true;
-                }
                 return false;
             }
             catch
@@ -31,58 +25,12 @@
             }
         }
 
-        public bool IsSuccessWithoutResult()
-        {
-            try
-            {
-                if (this is SuccessResultFlow<T>)
-                {
-                    if (Result == null)
-                    {
-                        return true;
-                    }
-                    return false;
-                }
-                return false;
-            }
-            catch
-            {
-                throw;
-            }
-        }
-
-        public bool IsExceptionWithResult()
+        public bool IsException()
         {
             try
             {
                 if (this is ExceptionResultFlow<T>)
-                {
-                    if (Result == null)
-                    {
-                        return false;
-                    }
                     return true;
-                }
-                return false;
-            }
-            catch
-            {
-                throw;
-            }
-        }
-
-        public bool IsExceptionWithoutResult()
-        {
-            try
-            {
-                if (this is ExceptionResultFlow<T>)
-                {
-                    if (Result == null)
-                    {
-                        return true;
-                    }
-                    return false;
-                }
                 return false;
             }
             catch

@@ -5,9 +5,7 @@
         T Result { get; set; }
         string Message { get; set; }
 
-        bool IsSuccessWithoutResult();
-        bool IsSuccessWithResult();
-        bool IsExceptionWithResult();
-        bool IsExceptionWithoutResult();
+        bool IsSuccess();
+        bool IsException();
     }
 }

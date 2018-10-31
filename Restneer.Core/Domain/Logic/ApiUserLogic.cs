@@ -42,7 +42,7 @@ namespace Restneer.Core.Domain.Logic
                 var encryptedPassword = _sha256Utility.Encrypt(password);
                 email = email.ToLower();
                 var authenticateResultFlow = await _apiUserRepository.Authenticate(email, encryptedPassword);
-                if (authenticateResultFlow.IsSuccessWithoutResult()) 
+                if (authenticateResultFlow.IsSuccess() && authenticateResultFlow.Result == null) 
                 {
                     return ResultFlowFactory.Exception<string>("Invalid credentials");
                 }

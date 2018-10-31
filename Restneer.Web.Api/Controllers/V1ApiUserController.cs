@@ -41,7 +41,7 @@ namespace Restneer.Web.Api.Controllers
                 {
                     var apiUserUseCase = _container.GetInstance<IApiUserUseCase>();
                     var testResultFlow = await apiUserUseCase.Authenticate(requestModel.email, requestModel.password);
-                    if (testResultFlow.IsSuccessWithResult())
+                    if (testResultFlow.IsSuccess())
                     {
                         return RespondSuccess(HttpStatusCode.OK, new { token = testResultFlow.Result });
                     }

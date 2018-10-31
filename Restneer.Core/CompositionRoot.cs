@@ -3,11 +3,13 @@ using Restneer.Core.Domain.Logic;
 using Restneer.Core.Domain.UseCase;
 using Restneer.Core.Infrastructure.Connection;
 using Restneer.Core.Infrastructure.Connection.MySql;
+using Restneer.Core.Infrastructure.Connection.Redis;
 using Restneer.Core.Infrastructure.Repository;
 using Restneer.Core.Infrastructure.ResultFlow;
 using Restneer.Core.Infrastructure.Service;
 using Restneer.Core.Infrastructure.Utility;
 using SimpleInjector;
+using StackExchange.Redis;
 
 namespace Restneer.Core
 {
@@ -34,6 +36,7 @@ namespace Restneer.Core
             try
             {
                 container.Register<ISqlConnectionFactory, MySqlConnectionFactory>(Lifestyle.Singleton);
+                container.Register<IRedisConnectionFactory, RedisConnectionFactory>(Lifestyle.Singleton);
                 container.Register<IResultFlowFactory, ResultFlowFactory>(Lifestyle.Singleton);
             }
             catch
@@ -47,7 +50,8 @@ namespace Restneer.Core
             try
             {
                 container.Register<IDbConnection>(() => container.GetInstance<ISqlConnectionFactory>().Fabricate(), Lifestyle.Scoped);
-                container.Register<IRestneerCacheService, RestneerCacheService>(Lifestyle.Singleton);
+                container.Register<IConnectionMultiplexer>(() => container.GetInstance<IRedisConnectionFactory>().Fabricate(), Lifestyle.Scoped);
+                container.Register<IRestneerCacheService, RestneerCacheService>(Lifestyle.Scoped);
                 container.Register<ISha256Utility, Sha256Utility>(Lifestyle.Singleton);
                 container.Register<IJwtUtility, JwtUtility>(Lifestyle.Singleton);
             }

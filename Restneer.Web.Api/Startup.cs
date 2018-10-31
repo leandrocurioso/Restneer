@@ -10,6 +10,7 @@ using SimpleInjector;
 using SimpleInjector.Integration.AspNetCore.Mvc;
 using SimpleInjector.Lifestyles;
 using Restneer.Core.Application.Middleware;
+using Restneer.Core.Infrastructure.Service;
 
 namespace Restneer.Web.Api
 {
@@ -51,8 +52,8 @@ namespace Restneer.Web.Api
             InitializeContainer(app);
             using (AsyncScopedLifestyle.BeginScope(_container))
             {
-               // var restneerCacheService = _container.GetInstance<IRestneerCacheService>();
-               // restneerCacheService.Load();
+               var restneerCacheService = _container.GetInstance<IRestneerCacheService>();
+               restneerCacheService.Load();
             }
             if (env.IsDevelopment())
             {

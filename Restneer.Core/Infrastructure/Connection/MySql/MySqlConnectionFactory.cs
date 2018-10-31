@@ -20,7 +20,7 @@ namespace Restneer.Core.Infrastructure.Connection.MySql
         public IDbConnection Fabricate()
         {
             try {
-                var connectionString = _configuration.GetConnectionString("Default");
+                var connectionString = _configuration.GetConnectionString("MySqlDefault");
                 return new MySqlConnection(connectionString);
             } catch {
                 throw;

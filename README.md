@@ -32,10 +32,5 @@ _______________________________
 
 **TO DO LIST**
 
-- Middleware standard;
 - Set UTC timezone for whole app with IConfiguration;
-- Route validation;
-- Logging;
-- *Swagger auto generated docs*;c
-- Repository ParamPackage query builder.
 

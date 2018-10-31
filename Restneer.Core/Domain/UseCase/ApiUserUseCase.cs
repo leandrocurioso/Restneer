@@ -29,8 +29,8 @@ namespace Restneer.Core.Domain.UseCase
         {
             try {
                 var getJwtTokenResultFlow = await _apiUserLogic.GetJwtToken(email, password);
-                if (getJwtTokenResultFlow.IsExceptionWithoutResult()) {
-                    return getJwtTokenResultFlow;
+                if (getJwtTokenResultFlow.IsException()) {
+                    return ResultFlowFactory.Exception<string>(getJwtTokenResultFlow.Message);
                 }
                 return ResultFlowFactory.Success<string>(getJwtTokenResultFlow.Result);
             } catch {

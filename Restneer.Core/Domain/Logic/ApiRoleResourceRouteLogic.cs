@@ -33,7 +33,10 @@ namespace Restneer.Core.Domain.Logic
         {
             try
             {
-                return await _apiRoleResourceRouteRepository.List(model);
+                var listResultFlow = await _apiRoleResourceRouteRepository.List(model);
+                if (listResultFlow.IsException())
+                    return ResultFlowFactory.Exception<IEnumerable<ApiRoleResourceRouteEntity>>(listResultFlow.Message);
+                return ResultFlowFactory.Success<IEnumerable<ApiRoleResourceRouteEntity>>(listResultFlow.Result);
             }
             catch
             {
