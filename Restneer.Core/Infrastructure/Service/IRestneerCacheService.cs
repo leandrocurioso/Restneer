@@ -7,7 +7,6 @@ namespace Restneer.Core.Infrastructure.Service
     public interface IRestneerCacheService
     {
         Task Load();
-        Task SetApiResourceRoute();
         IEnumerable<ApiResourceRouteEntity> GetApiResourceRoute();
     }
 }

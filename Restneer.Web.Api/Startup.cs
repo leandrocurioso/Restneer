@@ -47,6 +47,19 @@ namespace Restneer.Web.Api
             IntegrateSimpleInjector(services);
         }
 
+        void LoadRestneerCache()
+        {
+            try {
+                using (AsyncScopedLifestyle.BeginScope(_container))
+                {
+                    var restneerCacheService = _container.GetInstance<IRestneerCacheService>();
+                    restneerCacheService.Load().GetAwaiter().GetResult();
+                }
+            } catch {
+                throw;
+            }
+        }
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
@@ -60,11 +73,8 @@ namespace Restneer.Web.Api
             {
                 app.UseHsts();
             }
-            using (AsyncScopedLifestyle.BeginScope(_container))
-            {
-                var restneerCacheService = _container.GetInstance<IRestneerCacheService>();
-                restneerCacheService.Load().GetAwaiter().GetResult();
-            }
+
+            LoadRestneerCache();
             // app.UseHttpsRedirection();
             app.UseMiddleware<ApiKeyMiddleware>();
             app.UseMiddleware<SecurityMiddleware>();

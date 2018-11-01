@@ -40,7 +40,7 @@ namespace Restneer.Core.Infrastructure.Service
             }
         }
 
-        public async Task SetApiResourceRoute()
+        async Task SetApiResourceRoute()
         {
             try
             {
