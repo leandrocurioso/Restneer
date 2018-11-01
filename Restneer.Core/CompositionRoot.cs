@@ -50,7 +50,7 @@ namespace Restneer.Core
             try
             {
                 container.Register<IDbConnection>(() => container.GetInstance<ISqlConnectionFactory>().Fabricate(), Lifestyle.Scoped);
-                container.Register<IConnectionMultiplexer>(() => container.GetInstance<IRedisConnectionFactory>().Fabricate(), Lifestyle.Scoped);
+                container.Register<IDatabase>(() => container.GetInstance<IRedisConnectionFactory>().Fabricate(), Lifestyle.Scoped);
                 container.Register<IRestneerCacheService, RestneerCacheService>(Lifestyle.Scoped);
                 container.Register<ISha256Utility, Sha256Utility>(Lifestyle.Singleton);
                 container.Register<IJwtUtility, JwtUtility>(Lifestyle.Singleton);

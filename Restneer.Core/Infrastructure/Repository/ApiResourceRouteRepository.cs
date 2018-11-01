@@ -50,9 +50,9 @@ namespace Restneer.Core.Infrastructure.Repository
                 );
                 return ResultFlowFactory.Success<IEnumerable<ApiResourceRouteEntity>>(result);
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                throw;
             }
         }
     }

@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Restneer.Core.Domain.Logic;
 using Restneer.Core.Domain.Model.Entity;
@@ -9,14 +11,15 @@ namespace Restneer.Core.Infrastructure.Service
 {
     public class RestneerCacheService : IRestneerCacheService
     {
-        readonly IConnectionMultiplexer _redisConnection;
+        readonly IDatabase _redisConnection;
         readonly ILogger<IRestneerCacheService> _logger;
         readonly IApiResourceRouteLogic _apiResourceRouteLogic;
+        const string ApiResourceRoutesKey = "RestneerCache.ApiResourceRoutes";
 
         public RestneerCacheService(
             ILogger<IRestneerCacheService> logger,
             IApiResourceRouteLogic apiResourceRouteLogic,
-            IConnectionMultiplexer redisConnection
+            IDatabase redisConnection
         )
         {
             _logger = logger;
@@ -24,16 +27,42 @@ namespace Restneer.Core.Infrastructure.Service
             _apiResourceRouteLogic = apiResourceRouteLogic;
         }
 
-        public async void Load()
+        public async Task Load()
         {
             try
             {
-                var clientRedis = _redisConnection.GetDatabase();
+                await SetApiResourceRoute();
+                return;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public async Task SetApiResourceRoute()
+        {
+            try
+            {
                 var queryParamApiResourceRoute = new QueryParamValueObject<ApiResourceRouteEntity>();
                 var apiResourceRouteLogicResultFlow = await _apiResourceRouteLogic.List(queryParamApiResourceRoute);
-                clientRedis.StringSet("RestneerCache.ApiResourceRoutes", JsonConvert.SerializeObject(apiResourceRouteLogicResultFlow.Result));
-                _logger.LogInformation(clientRedis.StringGet("RestneerCache.ApiResourceRoutes"));
+                var jsonString = JsonConvert.SerializeObject(apiResourceRouteLogicResultFlow.Result);
+                _redisConnection.StringSet(ApiResourceRoutesKey, jsonString);
+                _logger.LogInformation(jsonString);
+                return;
+            }
+            catch
+            {
+                throw;
+            }
+        }
 
+        public IEnumerable<ApiResourceRouteEntity> GetApiResourceRoute()
+        {
+            try
+            {
+                var apiResourceRoutes = _redisConnection.StringGet(ApiResourceRoutesKey);
+                return JsonConvert.DeserializeObject<IEnumerable<ApiResourceRouteEntity>>(apiResourceRoutes);
             }
             catch
             {

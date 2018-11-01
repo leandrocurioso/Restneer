@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using Restneer.Core.Application.Controller;
 using Restneer.Core.Domain.UseCase;
+using Restneer.Core.Infrastructure.Service;
 using Restneer.Web.Api.RequestModel.V1.ApiUser;
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
@@ -36,7 +37,6 @@ namespace Restneer.Web.Api.Controllers
                 {
                     return RespondError(HttpStatusCode.BadRequest, requestModel.ResponseErrors);
                 }
-
                 using (AsyncScopedLifestyle.BeginScope(_container))
                 {
                     var apiUserUseCase = _container.GetInstance<IApiUserUseCase>();

@@ -13,11 +13,12 @@ namespace Restneer.Core.Infrastructure.Connection.Redis
             _configuration = configuration;
         }
 
-        public IConnectionMultiplexer Fabricate()
+        public IDatabase Fabricate(int database = 0)
         {
             try {
                 var connectionString = _configuration.GetConnectionString("RedisDefault");
-                return ConnectionMultiplexer.Connect(connectionString);
+                var redisConnection = ConnectionMultiplexer.Connect(connectionString);
+                return redisConnection.GetDatabase(database);
             }
             catch {
                 throw;

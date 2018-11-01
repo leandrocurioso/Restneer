@@ -4,6 +4,6 @@ namespace Restneer.Core.Infrastructure.Connection
 {
     public interface IRedisConnectionFactory
     {
-        IConnectionMultiplexer Fabricate();
+        IDatabase Fabricate(int database = 0);
     }
 }
