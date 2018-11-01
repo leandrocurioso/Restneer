@@ -37,7 +37,6 @@
     <Folder Include="Application\Controller\" />
     <Folder Include="Infrastructure\Interface\" />
     <Folder Include="Domain\UseCase\" />
-    <Folder Include="Infrastructure\Cache\" />
     <Folder Include="Infrastructure\Service\" />
     <Folder Include="Infrastructure\Model\" />
     <Folder Include="Infrastructure\Model\ValueObject\" />
