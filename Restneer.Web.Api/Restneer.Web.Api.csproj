@@ -10,7 +10,6 @@
     <TreatWarningsAsErrors></TreatWarningsAsErrors>
     <DocumentationFile></DocumentationFile>
     <ExternalConsole>false</ExternalConsole>
-    <SignAssembly></SignAssembly>
   </PropertyGroup>
   <ItemGroup> 
     <Folder Include="wwwroot\" />

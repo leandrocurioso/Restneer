@@ -61,5 +61,24 @@ namespace Restneer.Core.Infrastructure.Repository
                 throw;
             }
         }
+
+        public async Task<ResultFlow<ApiUserEntity>> Read(ApiUserEntity model)
+        {
+            try {
+                var sql = @"SELECT * 
+                            FROM api_user
+                            WHERE id = @Id";
+                var result = await _connection.QueryAsync<ApiUserEntity>(
+                    sql,
+                    param: new
+                    {
+                        Id = model.Id
+                    }
+                );
+                return ResultFlowFactory.Success<ApiUserEntity>(result.FirstOrDefault());
+            } catch {
+                throw;
+            }
+        }
     }
 }

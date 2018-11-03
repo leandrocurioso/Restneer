@@ -7,6 +7,7 @@ using Restneer.Core.Infrastructure.Model.ValueObject;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Restneer.Core.Infrastructure.ResultFlow;
+using System;
 
 namespace Restneer.Core.Infrastructure.Repository
 {
@@ -34,21 +35,22 @@ namespace Restneer.Core.Infrastructure.Repository
         {
             try
             {
-                var sql = @"SELECT api_resource_route.id AS api_resource_route_id, 
-                                   api_resource_route.api_resource_id AS api_resource_route_api_resource_id, 
-                                   api_resource_route.`name` AS api_resource_route_name, 
-                                   api_resource_route.uri_pattern, 
-                                   api_resource_route.is_logged, 
-                                   api_resource_route.is_authenticated, 
-                                   api_resource_route.version, 
-                                   api_resource_route.http_verb, 
-                                   api_resource_route.`status` AS api_resource_route_status, 
-                                   api_resource.uri, 
-                                   api_resource.`name` AS api_resource_name, 
-                                   api_resource.`status` AS api_resource_status
-                            FROM api_resource_route 
-                            INNER JOIN api_resource ON api_resource_route.api_resource_id = api_resource.id";
-                var result = await _connection.QueryAsync<ApiRoleResourceRouteEntity>(sql);
+                var sql = @"SELECT *
+                                FROM api_role_resource_route 
+                            INNER JOIN api_resource_route ON api_resource_route.id = api_role_resource_route.api_resource_route_id
+                            INNER JOIN api_role ON api_role.id = api_role_resource_route.api_role_id
+                            WHERE api_role.status = 1
+                            AND api_resource_route.status = 1
+                            AND api_role_resource_route.status = 1";
+
+                var result = await _connection.QueryAsync<ApiRoleResourceRouteEntity, ApiResourceRouteEntity, ApiRoleEntity, ApiRoleResourceRouteEntity> (
+                    sql,
+                    (apiRoleResourceRouteEntity, apiRouteResource, apiRole) => {
+                        apiRoleResourceRouteEntity.ApiRole = apiRole;
+                        apiRoleResourceRouteEntity.ApiResourceRoute = apiRouteResource;
+                        return apiRoleResourceRouteEntity;
+                    }
+                );
                 return ResultFlowFactory.Success<IEnumerable<ApiRoleResourceRouteEntity>> (result);
             }
             catch

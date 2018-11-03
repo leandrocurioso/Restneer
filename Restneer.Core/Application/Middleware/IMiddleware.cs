@@ -1,15 +1,12 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace Restneer.Core.Application.Middleware
 {
-    public interface IMiddleware<T>
+    public interface IMiddleware<T> : IMiddleware
     {
-        IConfiguration Configuration { get; set; }
         ILogger<T> Logger { get; set; }
-        RequestDelegate Next { get; set; }
-        Task InvokeAsync(HttpContext httpContext);
+        IConfiguration Configuration { get; set; }
     }
 }

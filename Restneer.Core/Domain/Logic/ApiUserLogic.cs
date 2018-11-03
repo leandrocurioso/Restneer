@@ -35,7 +35,7 @@ namespace Restneer.Core.Domain.Logic
             Configuration = configuration;
         }
 
-        public async Task<ResultFlow<string>> GetJwtToken(string email, string password)
+        public async Task<ResultFlow<string>> GetJwtToken(string email, string password, string audience)
         {
             try
             {
@@ -47,9 +47,9 @@ namespace Restneer.Core.Domain.Logic
                     return ResultFlowFactory.Exception<string>("Invalid credentials");
                 }
                 var apiUser = authenticateResultFlow.Result;
-                var token = _jwtUtility.GenerateJwt(
+                var token = _jwtUtility.EncodeJwt(
                     Configuration.GetSection("Server:Jwt:SecretKey").Value,
-                    Configuration.GetSection("Server:Jwt:Audience").Value,
+                    audience,
                     apiUser.Id.ToString(),
                     apiUser.ApiRole.Id.ToString(),
                     apiUser.Email,
@@ -58,6 +58,22 @@ namespace Restneer.Core.Domain.Logic
                 return ResultFlowFactory.Success<string>(token.RawData);
             }
             catch
+            {
+                throw;
+            }
+        }
+
+        public async Task<ResultFlow<ApiUserEntity>> Read(ApiUserEntity model)
+        {
+            try {
+                var readResultFlow = await _apiUserRepository.Read(model);
+                if (readResultFlow.IsSuccess() && readResultFlow.Result == null)
+                {
+                    return ResultFlowFactory.Exception<ApiUserEntity>("Api user not found");
+                }
+                return ResultFlowFactory.Success<ApiUserEntity>(readResultFlow.Result);
+            }
+            catch 
             {
                 throw;
             }

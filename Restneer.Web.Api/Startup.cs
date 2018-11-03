@@ -11,7 +11,6 @@ using SimpleInjector.Integration.AspNetCore.Mvc;
 using SimpleInjector.Lifestyles;
 using Restneer.Core.Application.Middleware;
 using Restneer.Core.Infrastructure.Service;
-using System.Threading.Tasks;
 
 namespace Restneer.Web.Api
 {
@@ -76,11 +75,11 @@ namespace Restneer.Web.Api
 
             LoadRestneerCache();
             // app.UseHttpsRedirection();
-            app.UseMiddleware<ApiKeyMiddleware>();
-            app.UseMiddleware<SecurityMiddleware>();
-            app.UseMiddleware<ExceptionMiddleware>();
+            app.UseMiddleware<ApiKeyMiddleware>(_container);
+            app.UseMiddleware<SecurityMiddleware>(_container);
+            app.UseMiddleware<ExceptionMiddleware>(_container);
             app.UseMvc();
-            app.UseMiddleware<NotFoundMiddleware>();
+            app.UseMiddleware<NotFoundMiddleware>(_container);
         }
 
         void InitializeContainer(IApplicationBuilder app)

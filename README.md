@@ -32,5 +32,7 @@ _______________________________
 
 **TO DO LIST**
 
-- Set UTC timezone for whole app with IConfiguration;
+- Security middleware log strcture;
+- Security middleware retest all proccess;
+
 

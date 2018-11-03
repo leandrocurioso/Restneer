@@ -8,7 +8,7 @@ namespace Restneer.Core.Infrastructure.Utility
 {
     public class JwtUtility : IJwtUtility
     {
-        public JwtSecurityToken GenerateJwt(string secretKey, string audience, string issuer, string role, string email, int daysToExpire)
+        public JwtSecurityToken EncodeJwt(string secretKey, string audience, string issuer, string role, string email, int daysToExpire)
         {
             try
             {
@@ -17,8 +17,8 @@ namespace Restneer.Core.Infrastructure.Utility
                 var signingKey = new SymmetricSecurityKey(key);
                 var signingCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
                 var token = handler.CreateJwtSecurityToken(
-                    issuer: issuer,
-                    audience: audience,
+                    issuer,
+                    audience,
                     expires: DateTime.UtcNow.AddDays(daysToExpire),
                     subject: new ClaimsIdentity(new[] {
                         new Claim(ClaimTypes.Role, role),
@@ -30,6 +30,41 @@ namespace Restneer.Core.Infrastructure.Utility
             catch
             {
                 throw;
+            }
+        }
+
+        public JwtSecurityToken DecodeJwt(string encodedToken)
+        {
+            try
+            {
+                var handler = new JwtSecurityTokenHandler();
+                return handler.ReadJwtToken(encodedToken);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public bool ValidateJwt(string encodedToken, string secretKey, string audience, string issuer)
+        {
+            try
+            {
+                var handler = new JwtSecurityTokenHandler();
+                var key = Encoding.UTF8.GetBytes(secretKey);
+                var signingKey = new SymmetricSecurityKey(key);
+                var tokenValidationParameters = new TokenValidationParameters
+                {
+                    IssuerSigningKey = signingKey,
+                    ValidAudience = audience,
+                    ValidIssuer = issuer
+                };
+                handler.ValidateToken(encodedToken, tokenValidationParameters, out SecurityToken validatedToken);
+                return true;
+            }
+            catch
+            {
+                return false;
             }
         }
     }

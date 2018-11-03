@@ -10,34 +10,31 @@ namespace Restneer.Core.Application.Middleware
 {
     public class ApiKeyMiddleware : IMiddleware<ApiKeyMiddleware>
     {
-        public RequestDelegate Next { get; set; }
         public ILogger<ApiKeyMiddleware> Logger { get; set; }
         public IConfiguration Configuration { get; set; }
 
         public ApiKeyMiddleware(
-            RequestDelegate next,
             ILogger<ApiKeyMiddleware> logger,
             IConfiguration configuration
         )
         {
-            Next = next;
             Logger = logger;
             Configuration = configuration;
         }
 
-        public async Task InvokeAsync(HttpContext httpContext)
+        public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
-            var requestApiKey = httpContext.Request.Headers["Api-Key"];
+            var requestApiKey = context.Request.Headers["Api-Key"];
             var validApiKey = Configuration.GetSection("Server:ApiKey").Value;
 
             if (requestApiKey == validApiKey) 
             {
-                await Next(httpContext);
+                await next(context);
                 return;
             }
 
-            httpContext.Response.ContentType = "application/json";
-            httpContext.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
+            context.Response.ContentType = "application/json";
+            context.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
             var errorObj = new { 
                 errors = new object[] {
                     new ErrorResponseValueObject() {
@@ -45,7 +42,7 @@ namespace Restneer.Core.Application.Middleware
                     }
                 }
             };
-            await httpContext.Response.WriteAsync(JsonConvert.SerializeObject(errorObj));
+            await context.Response.WriteAsync(JsonConvert.SerializeObject(errorObj));
             return;
         }
     }

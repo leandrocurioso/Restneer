@@ -8,5 +8,6 @@ namespace Restneer.Core.Infrastructure.Service
     {
         Task Load();
         IEnumerable<ApiResourceRouteEntity> GetApiResourceRoute();
+        IEnumerable<ApiRoleResourceRouteEntity> GetApRoleResourceRoute();
     }
 }

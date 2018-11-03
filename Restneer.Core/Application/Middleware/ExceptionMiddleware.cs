@@ -11,43 +11,40 @@ namespace Restneer.Core.Application.Middleware
 {
     public class ExceptionMiddleware  : IMiddleware<ExceptionMiddleware>
     {
-        public RequestDelegate Next { get; set; }
         public ILogger<ExceptionMiddleware> Logger { get; set; }
         public IConfiguration Configuration { get; set; }
 
         public ExceptionMiddleware(
-            RequestDelegate next,
             ILogger<ExceptionMiddleware> logger,
             IConfiguration configuration
         )
         {
-            Next = next;
             Logger = logger;
             Configuration = configuration;
         }
 
-        public async Task InvokeAsync(HttpContext httpContext)
+        public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
             try
             {
-                await Next(httpContext);
+                await next(context);
                 return;
             }
             catch (Exception ex)
             {
-                 await HandleExceptionAsync(httpContext, ex);
+                await HandleExceptionAsync(context, ex);
                 return;
             }
         }
 
-        public  async Task HandleExceptionAsync(HttpContext httpContext, Exception exception)
+        public  async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             Logger.LogError(JsonConvert.SerializeObject(new {
                 Message = exception.Message,
                 StackTrace = exception.StackTrace
             }));
-            httpContext.Response.ContentType = "application/json";
-            httpContext.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
+            context.Response.ContentType = "application/json";
+            context.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
             var errorObj = new
             {
                 errors = new object[] {
@@ -56,7 +53,7 @@ namespace Restneer.Core.Application.Middleware
                     }
                 }
             };
-            await httpContext.Response.WriteAsync(JsonConvert.SerializeObject(errorObj));
+            await context.Response.WriteAsync(JsonConvert.SerializeObject(errorObj));
             return;
         }
     }

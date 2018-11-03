@@ -37,9 +37,9 @@ namespace Restneer.Core.Infrastructure.Repository
             {
                 var sql = @"SELECT *
                             FROM api_resource_route 
-                            INNER JOIN api_resource ON api_resource_route.api_resource_id = api_resource.id
-                            WHERE api_resource_route.status = 1
-                            AND api_resource.status = 1";
+                           INNER JOIN api_resource ON api_resource_route.api_resource_id = api_resource.id
+                           WHERE api_resource_route.status = 1
+                           AND api_resource.status = 1";
                 var result = await _connection.QueryAsync<ApiResourceRouteEntity, ApiResourceEntity, ApiResourceRouteEntity>(
                     sql,
                     (apiResourceRoute, apiResource) =>

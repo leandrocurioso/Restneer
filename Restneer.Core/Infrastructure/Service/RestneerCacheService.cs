@@ -14,17 +14,21 @@ namespace Restneer.Core.Infrastructure.Service
         readonly IDatabase _redisConnection;
         readonly ILogger<IRestneerCacheService> _logger;
         readonly IApiResourceRouteLogic _apiResourceRouteLogic;
+        readonly IApiRoleResourceRouteLogic _apiRoleResourceRouteLogic;
         const string ApiResourceRoutesKey = "RestneerCache.ApiResourceRoutes";
+        const string ApiRoleResourceRoutesKey = "RestneerCache.ApiRoleResourceRoutes";
 
         public RestneerCacheService(
             ILogger<IRestneerCacheService> logger,
             IApiResourceRouteLogic apiResourceRouteLogic,
+            IApiRoleResourceRouteLogic apiRoleResourceRouteLogic,
             IDatabase redisConnection
         )
         {
             _logger = logger;
             _redisConnection = redisConnection;
             _apiResourceRouteLogic = apiResourceRouteLogic;
+            _apiRoleResourceRouteLogic = apiRoleResourceRouteLogic;
         }
 
         public async Task Load()
@@ -32,6 +36,24 @@ namespace Restneer.Core.Infrastructure.Service
             try
             {
                 await SetApiResourceRoute();
+                await SetApiRoleResourceRoute();
+                return;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        async Task SetApiRoleResourceRoute()
+        {
+            try
+            {
+                var queryParamApiRoleResourceRoute = new QueryParamValueObject<ApiRoleResourceRouteEntity>();
+                var apiResourceRouteLogicResultFlow = await _apiRoleResourceRouteLogic.List(queryParamApiRoleResourceRoute);
+                var jsonString = JsonConvert.SerializeObject(apiResourceRouteLogicResultFlow.Result);
+                _redisConnection.StringSet(ApiRoleResourceRoutesKey, jsonString);
+                _logger.LogInformation(jsonString);
                 return;
             }
             catch
@@ -66,6 +88,16 @@ namespace Restneer.Core.Infrastructure.Service
             }
             catch
             {
+                throw;
+            }
+        }
+
+        public IEnumerable<ApiRoleResourceRouteEntity> GetApRoleResourceRoute()
+        {
+            try {
+                var apiRoleResourceRoutes = _redisConnection.StringGet(ApiRoleResourceRoutesKey);
+                return JsonConvert.DeserializeObject<IEnumerable<ApiRoleResourceRouteEntity>>(apiRoleResourceRoutes);
+            } catch {
                 throw;
             }
         }
