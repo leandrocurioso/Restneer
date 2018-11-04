@@ -77,9 +77,9 @@ namespace Restneer.Web.Api
             // app.UseHttpsRedirection();
             app.UseMiddleware<ApiKeyMiddleware>(_container);
             app.UseMiddleware<SecurityMiddleware>(_container);
-            app.UseMiddleware<ExceptionMiddleware>(_container);
             app.UseMvc();
             app.UseMiddleware<NotFoundMiddleware>(_container);
+            app.UseMiddleware<ExceptionMiddleware>(_container);
         }
 
         void InitializeContainer(IApplicationBuilder app)

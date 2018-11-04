@@ -20,12 +20,12 @@ namespace Restneer.Web.Api.Controllers
         readonly Container _container;
 
         public V1ApiUserController(Container container, ILogger<V1ApiUserController> logger)
-            :base(logger)
+            : base(logger)
         {
             _container = container;
         }
 
-        [HttpGet("get/{id:long}/user")]
+        [HttpGet("{id:long}")]
         public async Task<object> Read([FromRoute] long id)
         {
             try

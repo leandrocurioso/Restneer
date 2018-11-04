@@ -44,9 +44,9 @@ namespace Restneer.Core.Application.Middleware
                 await ValidateApiResourceRoute(context, next, urls);
                 return;
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -153,16 +153,19 @@ namespace Restneer.Core.Application.Middleware
             }
         }
 
-        void LogRequest(HttpContext context, ApiResourceRouteEntity apiResourceRoute)
+        async Task LogRequest(HttpContext context, ApiResourceRouteEntity apiResourceRoute, ApiRoleResourceRouteEntity apiRoleResourceRoute = null,JwtSecurityToken jwtSecurityToken = null)
         {
             try
             {
                 var logObj = new
                 {
-                    // body = context.Request.Body,
-                    // query = context.Request.Query,
-                   //headers = context.Request.Headers,
+                    // body = await context.ReadAsStringAsync(),
+                    cookie = context.Request.Cookies,
+                    query = context.Request.QueryString.Value,
+                    headers = context.Request.Headers,
                     apiResourceRoute,
+                    apiRoleResourceRoute,
+                    jwtSecurityToken,
                     timestamp = DateTime.UtcNow
                 };
                 Logger.LogInformation(JsonConvert.SerializeObject(logObj));
@@ -173,7 +176,7 @@ namespace Restneer.Core.Application.Middleware
             }
         }
 
-        async Task ValidateApiRoleResourceRole(HttpContext context, ApiResourceRouteEntity apiResourceRouteEntity, JwtSecurityToken jwtSecurityToken)
+        async Task ValidateApiRoleResourceRole(HttpContext context, ApiResourceRouteEntity apiResourceRouteEntity, JwtSecurityToken jwtSecurityToken = null)
         {
             try
             {
@@ -186,6 +189,11 @@ namespace Restneer.Core.Application.Middleware
                 if (!apiRoleResourceRoute.Any())
                 {
                     await RespondError(context, "You do not have the permission to call this resource.", HttpStatusCode.Forbidden);
+                }
+
+                if (apiResourceRouteEntity.IsLogged)
+                {
+                    await LogRequest(context, apiResourceRouteEntity, apiRoleResourceRoute.ElementAt(0), jwtSecurityToken);
                 }
                 return;
             }
@@ -216,12 +224,12 @@ namespace Restneer.Core.Application.Middleware
                 var apiResourceRoute = filteredApiResourceRoutes.ElementAt(0);
                 if (apiResourceRoute.IsAuthenticated)
                 {
-                    await ValidateAuthorization(context, apiResourceRoute);
+                    await ValidateAuthorization(context, next, apiResourceRoute);
                     return;
                 }
                 if (apiResourceRoute.IsLogged)
                 {
-                    LogRequest(context, apiResourceRoute);
+                    await LogRequest(context, apiResourceRoute);
                 }
                 await next(context);
                 return;
@@ -232,7 +240,7 @@ namespace Restneer.Core.Application.Middleware
             }
         }
 
-        async Task ValidateAuthorization(HttpContext context, ApiResourceRouteEntity apiResourceRoute)
+        async Task ValidateAuthorization(HttpContext context, RequestDelegate next,  ApiResourceRouteEntity apiResourceRoute)
         {
             try
             {
@@ -251,6 +259,10 @@ namespace Restneer.Core.Application.Middleware
                     return;
                 }
                 var jwtToken = _jwtUtility.DecodeJwt(parts[1]);
+                if (jwtToken == null) {
+                    await RespondError(context, "Invalid authorization token", HttpStatusCode.Forbidden);
+                    return;
+                }
                 var isValidToken = _jwtUtility.ValidateJwt(parts[1], Configuration.GetSection("Server:Jwt:SecretKey").Value, audience, jwtToken.Issuer);
                 if (parts[0] != "Bearer" || !isValidToken)
                 {
@@ -259,6 +271,7 @@ namespace Restneer.Core.Application.Middleware
                 else
                 {
                     await ValidateApiRoleResourceRole(context, apiResourceRoute, jwtToken);
+                    await next(context);
                 }
                 return;
             }

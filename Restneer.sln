@@ -14,20 +14,33 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		restneer.sql = restneer.sql
 	EndProjectSection
 EndProject
+Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "Restneer.Web.Panel", "Restneer.Web.Panel\Restneer.Web.Panel.mdproj", "{1A873F12-F202-4036-9D8E-E8AD69CE087E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+		Default|Any CPU = Default|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{7E26EE37-7050-4F53-8A96-8248EC699687}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7E26EE37-7050-4F53-8A96-8248EC699687}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E26EE37-7050-4F53-8A96-8248EC699687}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E26EE37-7050-4F53-8A96-8248EC699687}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E26EE37-7050-4F53-8A96-8248EC699687}.Default|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E26EE37-7050-4F53-8A96-8248EC699687}.Default|Any CPU.Build.0 = Debug|Any CPU
 		{9828ED2D-973A-40E3-AA65-6AF107DA694B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9828ED2D-973A-40E3-AA65-6AF107DA694B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9828ED2D-973A-40E3-AA65-6AF107DA694B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9828ED2D-973A-40E3-AA65-6AF107DA694B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9828ED2D-973A-40E3-AA65-6AF107DA694B}.Default|Any CPU.ActiveCfg = Release|Any CPU
+		{9828ED2D-973A-40E3-AA65-6AF107DA694B}.Default|Any CPU.Build.0 = Release|Any CPU
+		{1A873F12-F202-4036-9D8E-E8AD69CE087E}.Debug|Any CPU.ActiveCfg = Default|Any CPU
+		{1A873F12-F202-4036-9D8E-E8AD69CE087E}.Debug|Any CPU.Build.0 = Default|Any CPU
+		{1A873F12-F202-4036-9D8E-E8AD69CE087E}.Release|Any CPU.ActiveCfg = Default|Any CPU
+		{1A873F12-F202-4036-9D8E-E8AD69CE087E}.Release|Any CPU.Build.0 = Default|Any CPU
+		{1A873F12-F202-4036-9D8E-E8AD69CE087E}.Default|Any CPU.ActiveCfg = Default|Any CPU
+		{1A873F12-F202-4036-9D8E-E8AD69CE087E}.Default|Any CPU.Build.0 = Default|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection

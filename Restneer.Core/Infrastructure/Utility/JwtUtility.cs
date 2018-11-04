@@ -42,7 +42,7 @@ namespace Restneer.Core.Infrastructure.Utility
             }
             catch
             {
-                throw;
+                return null;
             }
         }
 
