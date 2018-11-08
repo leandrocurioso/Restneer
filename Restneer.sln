@@ -14,7 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		restneer.sql = restneer.sql
 	EndProjectSection
 EndProject
-Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "Restneer.Web.Panel", "Restneer.Web.Panel\Restneer.Web.Panel.mdproj", "{1A873F12-F202-4036-9D8E-E8AD69CE087E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restneer.Web.Panel", "Restneer.Web.Panel\Restneer.Web.Panel.csproj", "{E3CF835B-70B7-43F2-BF6C-68E2832375E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,12 +35,12 @@ Global
 		{9828ED2D-973A-40E3-AA65-6AF107DA694B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9828ED2D-973A-40E3-AA65-6AF107DA694B}.Default|Any CPU.ActiveCfg = Release|Any CPU
 		{9828ED2D-973A-40E3-AA65-6AF107DA694B}.Default|Any CPU.Build.0 = Release|Any CPU
-		{1A873F12-F202-4036-9D8E-E8AD69CE087E}.Debug|Any CPU.ActiveCfg = Default|Any CPU
-		{1A873F12-F202-4036-9D8E-E8AD69CE087E}.Debug|Any CPU.Build.0 = Default|Any CPU
-		{1A873F12-F202-4036-9D8E-E8AD69CE087E}.Release|Any CPU.ActiveCfg = Default|Any CPU
-		{1A873F12-F202-4036-9D8E-E8AD69CE087E}.Release|Any CPU.Build.0 = Default|Any CPU
-		{1A873F12-F202-4036-9D8E-E8AD69CE087E}.Default|Any CPU.ActiveCfg = Default|Any CPU
-		{1A873F12-F202-4036-9D8E-E8AD69CE087E}.Default|Any CPU.Build.0 = Default|Any CPU
+		{E3CF835B-70B7-43F2-BF6C-68E2832375E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3CF835B-70B7-43F2-BF6C-68E2832375E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3CF835B-70B7-43F2-BF6C-68E2832375E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3CF835B-70B7-43F2-BF6C-68E2832375E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3CF835B-70B7-43F2-BF6C-68E2832375E3}.Default|Any CPU.ActiveCfg = Release|Any CPU
+		{E3CF835B-70B7-43F2-BF6C-68E2832375E3}.Default|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection

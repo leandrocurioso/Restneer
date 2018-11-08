@@ -153,7 +153,7 @@ namespace Restneer.Core.Application.Middleware
             }
         }
 
-        async Task LogRequest(HttpContext context, ApiResourceRouteEntity apiResourceRoute, ApiRoleResourceRouteEntity apiRoleResourceRoute = null,JwtSecurityToken jwtSecurityToken = null)
+        void LogRequest(HttpContext context, ApiResourceRouteEntity apiResourceRoute, ApiRoleResourceRouteEntity apiRoleResourceRoute = null,JwtSecurityToken jwtSecurityToken = null)
         {
             try
             {
@@ -193,7 +193,7 @@ namespace Restneer.Core.Application.Middleware
 
                 if (apiResourceRouteEntity.IsLogged)
                 {
-                    await LogRequest(context, apiResourceRouteEntity, apiRoleResourceRoute.ElementAt(0), jwtSecurityToken);
+                    LogRequest(context, apiResourceRouteEntity, apiRoleResourceRoute.ElementAt(0), jwtSecurityToken);
                 }
                 return;
             }
@@ -229,7 +229,7 @@ namespace Restneer.Core.Application.Middleware
                 }
                 if (apiResourceRoute.IsLogged)
                 {
-                    await LogRequest(context, apiResourceRoute);
+                    LogRequest(context, apiResourceRoute);
                 }
                 await next(context);
                 return;
