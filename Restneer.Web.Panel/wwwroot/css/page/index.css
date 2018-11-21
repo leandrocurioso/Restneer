@@ -1,0 +1,12 @@
+﻿#logo {
+    margin-bottom: 10px;
+}
+
+#extr-page #header {
+    height: 90px;
+}
+
+.col-centered {
+    float: none;
+    margin: 0 auto;
+}

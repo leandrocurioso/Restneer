@@ -12,6 +12,8 @@
     <Folder Include="wwwroot\img\" />
     <Folder Include="wwwroot\js\" />
     <Folder Include="wwwroot\sound\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="wwwroot\css\page\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -56,7 +58,6 @@
     <Content Remove="wwwroot\fonts\glyphicons-halflings-regular.ttf" />
     <Content Remove="wwwroot\fonts\glyphicons-halflings-regular.woff" />
     <Content Remove="wwwroot\fonts\glyphicons-halflings-regular.woff2" />
-    <Content Remove="wwwroot\fonts\Simple Tech Bold 02.otf" />
     <Content Remove="wwwroot\fonts\summernote.eot" />
     <Content Remove="wwwroot\fonts\summernote.ttf" />
     <Content Remove="wwwroot\fonts\summernote.woff" />
@@ -1523,10 +1524,16 @@
     <Content Remove="wwwroot\sound\voice_on.ogg" />
     <Content Remove="wwwroot\.DS_Store" />
     <Content Remove="wwwroot\forgotpassword.html" />
-    <Content Remove="wwwroot\index.html" />
     <Content Remove="wwwroot\lock.html" />
     <Content Remove="wwwroot\login.html" />
     <Content Remove="wwwroot\register.html" />
+    <Content Remove="wwwroot\main.html" />
+    <Content Remove="wwwroot\index.html" />
+    <Content Remove="wwwroot\fonts\Infinite_Stroke_Cond.otf" />
+    <Content Remove="wwwroot\fonts\Infinite_Stroke_Bolder_Cond.otf" />
+    <Content Remove="wwwroot\fonts\Infinite_Stroke_Bolder.otf" />
+    <Content Remove="wwwroot\fonts\Infinite_Stroke.otf" />
+    <Content Remove="wwwroot\bundle\css\bundle.min.css" />
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\css\bootstrap.min.css" />
@@ -1566,7 +1573,6 @@
     <None Include="wwwroot\fonts\glyphicons-halflings-regular.ttf" />
     <None Include="wwwroot\fonts\glyphicons-halflings-regular.woff" />
     <None Include="wwwroot\fonts\glyphicons-halflings-regular.woff2" />
-    <None Include="wwwroot\fonts\Simple Tech Bold 02.otf" />
     <None Include="wwwroot\fonts\summernote.eot" />
     <None Include="wwwroot\fonts\summernote.ttf" />
     <None Include="wwwroot\fonts\summernote.woff" />
@@ -3033,9 +3039,11 @@
     <None Include="wwwroot\sound\voice_on.ogg" />
     <None Include="wwwroot\.DS_Store" />
     <None Include="wwwroot\forgotpassword.html" />
-    <None Include="wwwroot\index.html" />
     <None Include="wwwroot\lock.html" />
-    <None Include="wwwroot\login.html" />
     <None Include="wwwroot\register.html" />
+    <None Include="wwwroot\fonts\Infinite_Stroke_Cond.otf" />
+    <None Include="wwwroot\fonts\Infinite_Stroke_Bolder_Cond.otf" />
+    <None Include="wwwroot\fonts\Infinite_Stroke_Bolder.otf" />
+    <None Include="wwwroot\fonts\Infinite_Stroke.otf" />
   </ItemGroup>
 </Project>

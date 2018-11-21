@@ -1,0 +1,39 @@
+{
+  "name": "restneer.web.panel",
+  "version": "1.0.0",
+  "description": "Panel for restneer",
+  "scripts": {
+    "gulp:minify-css": "./node_modules/.bin/gulp minify-css"
+  },
+  "author": "leandrocurioso",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leandrocurioso/Restneer.git"
+  },
+  "keywords": [
+    "rstneer",
+    "rest",
+    "server",
+    "rest",
+    "framework",
+    "rest",
+    "ddd"
+  ],
+  "bugs": {
+    "url": "https://github.com/leandrocurioso/Restneer/issues"
+  },
+  "homepage": "https://github.com/leandrocurioso/Restneer#readme",
+  "devDependencies": {
+    "gulp": "3.9.1",
+    "gulp-concat": "2.6.1",
+    "gulp-minify-css": "1.2.4",
+    "gulp-order": "1.2.0",
+    "gulp-rev": "9.0.0",
+    "gulp-sourcemaps": "2.6.4",
+    "gulp-uglify": "3.0.1"
+  },
+  "dependencies": {
+    "path": "0.12.7"
+  }
+}
