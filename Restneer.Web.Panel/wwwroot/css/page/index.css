@@ -3,6 +3,10 @@
 }
 
 #extr-page #header {
+    border-bottom: 4px solid #6a8bb1 !important;
+}
+
+#extr-page #header {
     height: 90px;
 }
 

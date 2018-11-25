@@ -1,11 +1,13 @@
 ﻿# Autosave files
 *~
+package-lock.json
 
 # build
 [Oo]bj/
 [Bb]in/
 packages/
 TestResults/
+node_modules/
 
 # globs
 Makefile.in

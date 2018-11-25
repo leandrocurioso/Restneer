@@ -1,18 +1,17 @@
 <!DOCTYPE html>
-<html lang="en-us" id="extr-page">
+<htm lang="en-us" id="extr-page">
 <head>
     <meta charset="utf-8">
     <title>Restneer</title>
     <meta name="author" content="leandrocurioso">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" type="text/css" media="screen" href="bundle.min.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="css/page/index.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/page/index.css?0">
     <link rel="shortcut icon" href="img/favicon/favicon.ico" type="image/x-icon">
     <link rel="icon" href="img/favicon/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700">
 </head>
-
-<body class="animated fadeInDown">
+<body ng-app="IndexRestneerModule" class="animated fadeInDown">
 
     <header id="header" class="text-center">
         <a href="index.html" title="Restneer">
@@ -26,82 +25,16 @@
         <div id="content" class="container">
 
             <div class="row ">
-
-
-                <div class="col-centered col-xs-12 col-sm-12 col-md-5 col-lg-4">
-                    <div class="well no-padding">
-                        <form action="index.html" id="login-form" class="smart-form client-form">
-                            <header>
-                                Sign In
-                            </header>
-
-                            <fieldset>
-
-                                <section>
-                                    <label class="label">E-mail</label>
-                                    <label class="input">
-                                        <i class="icon-append fa fa-user"></i>
-                                        <input type="email" name="email">
-                                        <b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> Please enter email address/username</b>
-                                    </label>
-                                </section>
-
-                                <section>
-                                    <label class="label">Password</label>
-                                    <label class="input">
-                                        <i class="icon-append fa fa-lock"></i>
-                                        <input type="password" name="password">
-                                        <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> Enter your password</b>
-                                    </label>
-                                    <div class="note">
-                                        <a href="forgotpassword.html">Forgot password?</a>
-                                    </div>
-                                </section>
-
-                                <section>
-                                    <label class="checkbox">
-                                        <input type="checkbox" name="remember" checked="">
-                                        <i></i>Stay signed in
-                                    </label>
-                                </section>
-                            </fieldset>
-                            <footer>
-                                <button type="submit" class="btn btn-primary">
-                                    Sign in
-                                </button>
-                            </footer>
-                        </form>
-
-                    </div>
-                   
-                </div>
+                <ng-view>
+                    <div ng-include="'module/index-restneer/index-restneer-login.view.html'"></div>
+                </ng-view>
             </div>
         </div>
 
     </div>
-
-    <!--================================================== -->
-    <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script>if (!window.jQuery) { document.write('<script src="js/libs/jquery-3.2.1.min.js"><\/script>');}</script>
-
-    <!--<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script> if (!window.jQuery.ui) { document.write('<script src="js/libs/jquery-ui.min.js"><\/script>');} </script>-->
-    <!-- IMPORTANT: APP CONFIG -->
-    <script src="js/app.config.js"></script>
-
-    <!-- JS TOUCH : include this plugin for mobile drag / drop touch events
-    <script src="js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script> -->
-    <!-- BOOTSTRAP JS -->
-    <script src="js/bootstrap/bootstrap.min.js"></script>
-
     <!--[if IE 8]>
-
         <h1>Your browser is out of date, please update your browser by going to www.microsoft.com/download</h1>
-
     <![endif]-->
-    <!-- MAIN APP JS FILE -->
-    <script src="js/app.min.js"></script>
-
+    <script src="module/index-restneer/index-restneer-bundle.app.js"></script>
 </body>
-</html>
+</htm>
