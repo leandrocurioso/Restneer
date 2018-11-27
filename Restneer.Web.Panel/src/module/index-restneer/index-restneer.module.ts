@@ -4,6 +4,7 @@ import HttpService from "../../service/http.service";
 import { IAppService } from "../../service/i-app-service";
 import { IAppController } from "../../module/i-app-controller";
 import IndexRestneerLoginController from "../../module/index-restneer/controller/index-restneer.login.controller";
+import ApiUserService from "../../service/api-user.service";
 
 class IndexRestneerModule extends WebApp implements IAppModule {
 
@@ -24,7 +25,8 @@ class IndexRestneerModule extends WebApp implements IAppModule {
     private loadServices(
         services: IAppService[] = 
             [
-                new HttpService(this.angularJs)
+                new HttpService(this.appModule),
+                new ApiUserService(this.appModule)
             ]
     ): void {
         services.forEach(service => {
@@ -35,7 +37,7 @@ class IndexRestneerModule extends WebApp implements IAppModule {
     private loadControllers(
         controllers: IAppController[] = 
             [
-                new IndexRestneerLoginController(this.angularJs)
+                new IndexRestneerLoginController(this.appModule)
             ]
     ): void {
         controllers.forEach(controller => {

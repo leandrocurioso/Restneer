@@ -17,6 +17,10 @@ namespace Restneer.Web.Panel
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+                   .UseKestrel(options => {
+                       options.AddServerHeader = false;
+                   })
+                   .UseContentRoot(Directory.GetCurrentDirectory())
+                   .UseStartup<Startup>();
     }
 }

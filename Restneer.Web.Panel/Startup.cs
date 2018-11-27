@@ -31,7 +31,19 @@ namespace Restneer.Web.Panel
             });
 
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc(options => {
+                options.CacheProfiles.Add("Default",
+                new CacheProfile()
+                {
+                    Duration = 10
+                });
+                options.CacheProfiles.Add("Never",
+                    new CacheProfile()
+                    {
+                        Location = ResponseCacheLocation.None,
+                        NoStore = true
+                    });
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
 

@@ -1,20 +1,23 @@
 ﻿import { IAppController } from "../../i-app-controller";
+import ApiUserService from "../../../service/api-user.service";
 
 class IndexRestneerLoginControler implements IAppController {
 
-    private readonly angularJs;
+    private readonly appModule;
+    private $ApiUserService;
 
-    constructor(angularJs) {
-        this.angularJs = angularJs;
+    constructor(appModule) {
+        this.appModule = appModule;
     }
 
     public load(): void {
-        this.angularJs.module('IndexRestneerModule')
-        .controller('LoginController',
-        (
-            $scope, $rootScope, $HttpService
+        this.appModule.controller('LoginController',
+        async (
+            $scope, $rootScope, $ApiUserService: ApiUserService
         ) => {
-            $scope.email = "leandro.curioso@gmail.com";
+              this.$ApiUserService = $ApiUserService;
+            const result = await this.$ApiUserService.authenticate("leandro.curioso@gmail.com", "5221684");
+            console.log(result);
         });
     }
      

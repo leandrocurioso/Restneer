@@ -1,23 +1,41 @@
 ﻿import { IAppService } from "./i-app-service";
+import { IHttpServiceRequest } from "./i-http-service-request";
 
-class $HttpService implements IAppService {
+class HttpService implements IAppService {
 
-    private readonly angularJs;
+    protected readonly appModule;
+    private $rootScope;
+    private $http;
+    private $cookies;
 
-    constructor(angularJs) {
-        this.angularJs = angularJs;
+    constructor(appModule) {
+        this.appModule = appModule;
     }
 
+    public async call(httpServiceRequest: IHttpServiceRequest): Promise<any> {
+        httpServiceRequest.url = "http://localhost:5001" + httpServiceRequest.url;
+        console.log(httpServiceRequest);
+        return await this.$http(httpServiceRequest).catch(err => {
+            throw err;
+        });
+    }
+   
     public load(): void {
-        this.angularJs.module('IndexRestneerModule').factory('$HttpService',
-        (
-            $rootScope, $http, $cookies
-        ) => {
-            const service = {};
-            return service;
+        this.appModule.factory('$HttpService',
+            (
+                $rootScope, $http, $cookies
+            ) => {
+            this.$rootScope = $rootScope;
+            this.$http = $http;
+            this.$cookies = $cookies;
+            return {
+                call: async (httpServiceRequest: IHttpServiceRequest): Promise<any> => {
+                    return await this.call(httpServiceRequest);
+                }
+            };
         });
     }
    
 }
 
-export default $HttpService;
+export default HttpService;

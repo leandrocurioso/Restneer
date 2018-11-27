@@ -42,6 +42,15 @@ namespace Restneer.Web.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Add service and create Policy with options
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             IntegrateSimpleInjector(services);
         }
@@ -74,6 +83,7 @@ namespace Restneer.Web.Api
             }
 
             LoadRestneerCache();
+            app.UseCors("CorsPolicy");
             // app.UseHttpsRedirection();
             app.UseMiddleware<ApiKeyMiddleware>(_container);
             app.UseMiddleware<SecurityMiddleware>(_container);

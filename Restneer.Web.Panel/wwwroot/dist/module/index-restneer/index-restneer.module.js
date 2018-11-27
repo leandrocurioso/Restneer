@@ -16,6 +16,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var webapp_1 = require("../webapp");
 var http_service_1 = require("../../service/http.service");
 var index_restneer_login_controller_1 = require("../../module/index-restneer/controller/index-restneer.login.controller");
+var api_user_service_1 = require("../../service/api-user.service");
 var IndexRestneerModule = /** @class */ (function (_super) {
     __extends(IndexRestneerModule, _super);
     function IndexRestneerModule(angularJs) {
@@ -28,7 +29,8 @@ var IndexRestneerModule = /** @class */ (function (_super) {
     };
     IndexRestneerModule.prototype.loadServices = function (services) {
         if (services === void 0) { services = [
-            new http_service_1.default(this.angularJs)
+            new http_service_1.default(this.appModule),
+            new api_user_service_1.default(this.appModule)
         ]; }
         services.forEach(function (service) {
             service.load();
@@ -36,7 +38,7 @@ var IndexRestneerModule = /** @class */ (function (_super) {
     };
     IndexRestneerModule.prototype.loadControllers = function (controllers) {
         if (controllers === void 0) { controllers = [
-            new index_restneer_login_controller_1.default(this.angularJs)
+            new index_restneer_login_controller_1.default(this.appModule)
         ]; }
         controllers.forEach(function (controller) {
             controller.load();
