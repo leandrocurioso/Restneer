@@ -5,6 +5,8 @@ import { IAppService } from "../../service/i-app-service";
 import { IAppController } from "../../module/i-app-controller";
 import IndexRestneerLoginController from "../../module/index-restneer/controller/index-restneer.login.controller";
 import ApiUserService from "../../service/api-user.service";
+import RestneerService from "../../service/restneer.service";
+import ConfigService from "../../service/config.service"
 
 class IndexRestneerModule extends WebApp implements IAppModule {
 
@@ -25,7 +27,9 @@ class IndexRestneerModule extends WebApp implements IAppModule {
     private loadServices(
         services: IAppService[] = 
             [
+                new ConfigService(this.appModule),
                 new HttpService(this.appModule),
+                new RestneerService(this.appModule),
                 new ApiUserService(this.appModule)
             ]
     ): void {

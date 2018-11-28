@@ -17,6 +17,8 @@ var webapp_1 = require("../webapp");
 var http_service_1 = require("../../service/http.service");
 var index_restneer_login_controller_1 = require("../../module/index-restneer/controller/index-restneer.login.controller");
 var api_user_service_1 = require("../../service/api-user.service");
+var restneer_service_1 = require("../../service/restneer.service");
+var config_service_1 = require("../../service/config.service");
 var IndexRestneerModule = /** @class */ (function (_super) {
     __extends(IndexRestneerModule, _super);
     function IndexRestneerModule(angularJs) {
@@ -29,7 +31,9 @@ var IndexRestneerModule = /** @class */ (function (_super) {
     };
     IndexRestneerModule.prototype.loadServices = function (services) {
         if (services === void 0) { services = [
+            new config_service_1.default(this.appModule),
             new http_service_1.default(this.appModule),
+            new restneer_service_1.default(this.appModule),
             new api_user_service_1.default(this.appModule)
         ]; }
         services.forEach(function (service) {

@@ -44,19 +44,13 @@ var ApiUserService = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.$HttpService.call({
+                    case 0: return [4 /*yield*/, this.$RestneerService.call({
                             url: this.baseUrl + "/authenticate",
                             method: "POST",
-                            headers: {
-                                "Api-Key": "e6b3c557-72c7-4fc0-a239-d4d8877d5a32"
-                            },
                             data: { email: email, password: password }
-                        }).then(function (response) {
-                            console.log(response);
-                            return true;
-                        }).catch(function (err) {
-                            console.log(err);
-                            throw err;
+                        }).then(function (response) { return response.data; })
+                            .catch(function (err) {
+                            throw new Error("Invalid credentials!");
                         })];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
@@ -65,18 +59,9 @@ var ApiUserService = /** @class */ (function () {
     };
     ApiUserService.prototype.load = function () {
         var _this = this;
-        this.appModule.factory('$ApiUserService', function ($HttpService) {
-            _this.$HttpService = $HttpService;
-            return {
-                authenticate: function (email, password) { return __awaiter(_this, void 0, void 0, function () {
-                    return __generator(this, function (_a) {
-                        switch (_a.label) {
-                            case 0: return [4 /*yield*/, this.authenticate(email, password)];
-                            case 1: return [2 /*return*/, _a.sent()];
-                        }
-                    });
-                }); }
-            };
+        this.appModule.factory('$ApiUserService', function ($RestneerService) {
+            _this.$RestneerService = $RestneerService;
+            return _this;
         });
     };
     return ApiUserService;

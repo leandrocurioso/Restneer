@@ -1,5 +1,5 @@
 ﻿export interface IAppService
 {
-    load(): void;
+    load(): any;
 }
 
