@@ -43,13 +43,11 @@ var HttpService = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        httpServiceRequest.url = "http://localhost:5001" + httpServiceRequest.url;
-                        return [4 /*yield*/, this.$http(httpServiceRequest)
-                                .then(function (response) { return ({ statusCode: response.status, data: response.data }); })
-                                .catch(function (err) {
-                                throw err;
-                            })];
+                    case 0: return [4 /*yield*/, this.$http(httpServiceRequest)
+                            .then(function (response) { return ({ statusCode: response.status, data: response.data }); })
+                            .catch(function (err) {
+                            throw err;
+                        })];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });

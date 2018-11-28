@@ -50,6 +50,7 @@ var ApiUserService = /** @class */ (function () {
                             data: { email: email, password: password }
                         }).then(function (response) { return response.data; })
                             .catch(function (err) {
+                            console.log(err);
                             throw new Error("Invalid credentials!");
                         })];
                     case 1: return [2 /*return*/, _a.sent()];

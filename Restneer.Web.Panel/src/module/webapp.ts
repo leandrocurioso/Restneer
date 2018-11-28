@@ -3,7 +3,7 @@
     protected readonly angularJs;
     protected readonly appName: string;
     protected readonly dependencies: string[];
-    public appModule;
+    public appModule: angular.IModule;
 
     constructor(appName: string, dependencies: string[], angularJs) {
         this.appName = appName;

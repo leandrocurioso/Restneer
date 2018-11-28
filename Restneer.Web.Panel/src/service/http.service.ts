@@ -1,10 +1,10 @@
-﻿import { IAppService } from "./i-app-service";
+﻿import { IService } from "./i-service";
 import { IHttpServiceRequest } from "./i-http-service-request";
 import { IServiceResponse } from "./i-service-response";
 
-class HttpService implements IAppService {
+class HttpService implements IService {
 
-    protected readonly appModule;
+    private readonly appModule: angular.IModule;
     private $rootScope;
     private $http;
     private $cookies;
@@ -14,7 +14,6 @@ class HttpService implements IAppService {
     }
 
     public async call(httpServiceRequest: IHttpServiceRequest): Promise<IServiceResponse<any>> {
-        httpServiceRequest.url = "http://localhost:5001" + httpServiceRequest.url;
         return await this.$http(httpServiceRequest)
             .then(response => ({ statusCode: response.status, data: response.data }))
             .catch(err => {

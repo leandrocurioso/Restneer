@@ -1,14 +1,14 @@
 ﻿import WebApp from "../webapp";
-import { IAppModule } from "../i-app-module";
+import { IModule } from "../i-module";
 import HttpService from "../../service/http.service";
-import { IAppService } from "../../service/i-app-service";
-import { IAppController } from "../../module/i-app-controller";
+import { IService } from "../../service/i-service";
+import { IController } from "../../module/i-controller";
 import IndexRestneerLoginController from "../../module/index-restneer/controller/index-restneer.login.controller";
 import ApiUserService from "../../service/api-user.service";
 import RestneerService from "../../service/restneer.service";
 import ConfigService from "../../service/config.service"
 
-class IndexRestneerModule extends WebApp implements IAppModule {
+class IndexRestneerModule extends WebApp implements IModule {
 
     private static readonly dependencies: string[] = [
       'ngRoute', 'ngCookies'
@@ -25,7 +25,7 @@ class IndexRestneerModule extends WebApp implements IAppModule {
     }
 
     private loadServices(
-        services: IAppService[] = 
+        services: IService[] = 
             [
                 new ConfigService(this.appModule),
                 new HttpService(this.appModule),
@@ -39,7 +39,7 @@ class IndexRestneerModule extends WebApp implements IAppModule {
     }
 
     private loadControllers(
-        controllers: IAppController[] = 
+        controllers: IController[] = 
             [
                 new IndexRestneerLoginController(this.appModule)
             ]

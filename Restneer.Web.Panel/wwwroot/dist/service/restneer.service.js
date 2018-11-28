@@ -44,10 +44,10 @@ var RestneerService = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.$HttpService.call({
-                            url: this.baseUrl + httpServiceRequest.url,
+                            url: this.$ConfigService.restneerService.host + httpServiceRequest.url,
                             method: httpServiceRequest.method,
                             headers: Object.assign({}, {
-                                "Api-Key": this.$ConfigService.restneerService
+                                "Api-Key": this.$ConfigService.restneerService.apiKey
                             }, httpServiceRequest.headers),
                             data: httpServiceRequest.data,
                         }).catch(function (err) {

@@ -1,13 +1,12 @@
 ﻿import HttpService from "./http.service";
 import ConfigService from "./config.service";
-
 import { IHttpServiceRequest } from "./i-http-service-request";
 import { IServiceResponse } from "./i-service-response";
+import { IService } from "./i-service";
 
-class RestneerService {
+class RestneerService implements IService {
     
-    private readonly appModule;
-    private readonly baseUrl: string;
+    private readonly appModule: angular.IModule;
     private $HttpService: HttpService;
     private $ConfigService: ConfigService;
     
@@ -17,11 +16,11 @@ class RestneerService {
 
     public async call(httpServiceRequest: IHttpServiceRequest): Promise<IServiceResponse<any>> {
         return await this.$HttpService.call({
-            url: this.baseUrl + httpServiceRequest.url,
+            url: this.$ConfigService.restneerService.host + httpServiceRequest.url,
             method: httpServiceRequest.method,
             headers: Object.assign({},  
             {
-                "Api-Key": this.$ConfigService.restneerService
+                "Api-Key": this.$ConfigService.restneerService.apiKey
             }, 
             httpServiceRequest.headers),
             data: httpServiceRequest.data,

@@ -39,28 +39,34 @@ var IndexRestneerLoginControler = /** @class */ (function () {
     function IndexRestneerLoginControler(appModule) {
         this.appModule = appModule;
     }
+    IndexRestneerLoginControler.prototype.authenticate = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.$ApiUserService.authenticate(this.$scope.email, this.$scope.password)
+                            .catch(function (err) {
+                            console.log(_this.$scope.showInvalidCredential);
+                            _this.$scope.showInvalidCredential = true;
+                            console.log(err);
+                        })];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
     IndexRestneerLoginControler.prototype.load = function () {
         var _this = this;
-        this.appModule.controller('LoginController', function ($scope, $window, $rootScope, $ApiUserService) {
-            _this.$scope = $scope;
-            _this.$ApiUserService = $ApiUserService;
-            _this.$scope["authenticate"] = function () { return __awaiter(_this, void 0, void 0, function () {
-                var result;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this.$ApiUserService.authenticate(this.$scope.email, this.$scope.password)
-                                .catch(function (err) {
-                                alert(err.message);
-                                throw err;
-                            })];
-                        case 1:
-                            result = _a.sent();
-                            $window.localStorage.setItem("token", result.payload.token);
-                            return [2 /*return*/];
-                    }
-                });
-            }); };
-        });
+        this.appModule.controller('LoginController', function ($scope, $window, $rootScope, $ApiUserService) { return __awaiter(_this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                this.$scope = $scope;
+                this.$scope.showInvalidCredential = false;
+                this.$ApiUserService = $ApiUserService;
+                console.log(this.authenticate);
+                this.$scope["authenticate"] = this.authenticate;
+                return [2 /*return*/, this];
+            });
+        }); });
     };
     return IndexRestneerLoginControler;
 }());

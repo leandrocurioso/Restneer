@@ -1,8 +1,9 @@
 ﻿import RestneerService from "./restneer.service";
+import { IService } from "./i-service";
 
-class ApiUserService {
+class ApiUserService implements IService {
     
-    private readonly appModule;
+    private readonly appModule: angular.IModule;
     private readonly baseUrl: string;
     private $RestneerService: RestneerService;
 
@@ -18,6 +19,7 @@ class ApiUserService {
             data: { email, password }
             }).then(response => response.data)
             .catch(err => {
+                console.log(err);
                throw new Error("Invalid credentials!");
             });
     }

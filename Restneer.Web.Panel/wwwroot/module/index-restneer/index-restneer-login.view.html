@@ -5,6 +5,9 @@
                 Sign In
             </header>
             <fieldset>
+                    <div class="alert alert-danger" ng-show="showInvalidCredential" role="alert">
+                        Invalid
+                    </div>
                 <section>
                     <label class="label">E-mail</label>
                     <label class="input">
