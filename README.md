@@ -1,6 +1,7 @@
 # Restneer
 
 git config --global user.name "Leandro Curioso"
+
 git config --global user.email "leandro.curioso@gmail.com"
 
 Environment Variables
